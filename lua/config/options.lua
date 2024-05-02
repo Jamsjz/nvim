@@ -1,0 +1,36 @@
+-- UI
+vim.opt.termguicolors = true
+vim.o.pumheight = 10
+vim.o.cmdheight = 1
+vim.o.conceallevel = 0
+
+-- Update and backups
+vim.o.showmode = false
+vim.o.backup = false
+vim.o.writebackup = false
+vim.o.updatetime = 300
+vim.o.timeoutlen = 100
+
+-- Backspace key
+vim.o.backspace = "indent,eol,start"
+-- Get the current 'iskeyword' setting
+vim.opt.iskeyword = "@,48-57,65-90,97-122"
+-- Cursor unchanged
+vim.api.nvim_create_autocmd("ExitPre", {
+  group = vim.api.nvim_create_augroup("Exit", { clear = true }),
+  command = "set guicursor=a:ver90",
+  desc = "Set cursor back to beam when leaving Neovim.",
+})
+
+-- Markdown
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt.wrap = true
+    vim.opt.linebreak = true
+  end,
+})
+vim.opt.spelllang = "en_us"
+
+-- Neovide
+vim.g.neovide_transparency = 0.8
