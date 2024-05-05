@@ -2,7 +2,6 @@
 vim.opt.termguicolors = true
 vim.o.pumheight = 10
 vim.o.cmdheight = 1
-vim.o.conceallevel = 0
 
 -- Update and backups
 vim.o.showmode = false
@@ -34,3 +33,8 @@ vim.opt.spelllang = "en_us"
 
 -- Neovide
 vim.g.neovide_transparency = 0.8
+
+vim.opt.conceallevel = 2
+vim.opt.concealcursor = 'nc'
+vim.opt.shellslash = true
+vim.cmd('language en_US.utf8')

@@ -15,6 +15,8 @@
   - [[#dashboard][Dashboard]]
   - [[#completion][Completion]]
   - [[#utils][Utils]]
+- [[#neovide][Neovide]]
+- [[#org-mode][Org-Mode]]
 
 * About This config
 This is a simple config and a complete refactor of my previous config.
@@ -37,19 +39,6 @@ The src in this block will be automatically executed when nvim starts.
 
 == This block is for neovide to change scale factor that is zoom in or out with ^+ or -a ==
 #+begin_src lua :tangle lua/config/autocmds.lua
-local change_scale_factor = function(delta)
-  vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
-end
-
-vim.g.neovide_scale_factor = 1.0
-
-vim.keymap.set("i", "<C-=>", function()
-  change_scale_factor(1.25)
-end)
-
-vim.keymap.set("i", "<C-->", function()
-  change_scale_factor(1 / 1.25)
-end)
 #+end_src
 
 * Keymaps
@@ -157,7 +146,6 @@ Default options that are always set from [[https://github.com/LazyVim/LazyVim/bl
 vim.opt.termguicolors = true
 vim.o.pumheight = 10
 vim.o.cmdheight = 1
-vim.o.conceallevel = 0
 
 -- Update and backups
 vim.o.showmode = false
@@ -190,6 +178,10 @@ vim.opt.spelllang = "en_us"
 -- Neovide
 vim.g.neovide_transparency = 0.8
 
+vim.opt.conceallevel = 2
+vim.opt.concealcursor = 'nc'
+vim.opt.shellslash = true
+vim.cmd('language en_US.utf8')
 #+end_src
 
 * PLUGINS
@@ -959,4 +951,84 @@ return {
 *** End
 #+begin_src lua :tangle lua/plugins/utils.lua
 }
+#+end_src
+
+* Neovide
+This is all the connfiguration for neovide.
+#+begin_src lua :tangle lua/config/neovide.lua
+if vim.g.neovide then
+  vim.o.guifont = "Source Code Pro:h14"
+  vim.opt.linespace = 0
+  vim.g.neovide_scale_factor = 1.0
+  vim.g.neovide_padding_top = 0
+  vim.g.neovide_padding_bottom = 0
+  vim.g.neovide_padding_right = 0
+  vim.g.neovide_padding_left = 0
+  local alpha = function()
+    return string.format("%x", math.floor(255 * vim.g.transparency or 0.8))
+  end
+  -- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
+  vim.g.neovide_background_color = "#0f1117" .. alpha()
+  vim.g.neovide_window_blurred = true
+  vim.g.neovide_floating_blur_amount_x = 2.0
+  vim.g.neovide_floating_blur_amount_y = 2.0
+  vim.g.neovide_floating_shadow = true
+  vim.g.neovide_floating_z_height = 10
+  vim.g.neovide_light_angle_degrees = 45
+  vim.g.neovide_light_radius = 5
+  vim.g.neovide_transparency = 0.8
+
+  vim.g.neovide_scale_factor = 1.0
+  local change_scale_factor = function(delta)
+    vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
+  end
+  vim.keymap.set("n", "<C-=>", function()
+    change_scale_factor(1.25)
+  end)
+  vim.keymap.set("n", "<C-->", function()
+    change_scale_factor(1/1.25)
+  end)
+end
+#+end_src
+
+* Org-Mode
+This is the plugin for org mode in nvim.
+
+#+begin_src lua :tangle lua/plugins/nvim-org.lua
+return {
+  'nvim-orgmode/orgmode',
+  event = 'VeryLazy',
+  ft = { 'org' },
+  config = function()
+    -- Setup orgmode
+    require('orgmode').setup({
+      org_agenda_files = '~/orgfiles/**/*',
+      org_default_notes_file = '~/orgfiles/refile.org',
+    })
+
+require('nvim-treesitter.configs').setup {
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = {'org'}, -- This line is needed
+  },
+  ensure_installed = {'org'},
+}
+
+    require('cmp').setup({
+  sources = {
+    { name = 'orgmode' }
+  }
+})
+    require('orgmode').setup({
+  org_todo_keywords = {'TODO', 'WAITING', '|', 'DONE', 'DELEGATED'},
+  org_todo_keyword_faces = {
+    WAITING = ':foreground blue :weight bold',
+    DELEGATED = ':background #FFFFFF :slant italic :underline on',
+    TODO = ':background #000000 :foreground red', -- overrides builtin color for `TODO` keyword
+  }
+})
+
+  end,
+}
+
 #+end_src
