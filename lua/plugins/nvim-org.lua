@@ -1,4 +1,4 @@
-return {
+return {{
   'nvim-orgmode/orgmode',
   event = 'VeryLazy',
   ft = { 'org' },
@@ -17,11 +17,6 @@ require('nvim-treesitter.configs').setup {
   ensure_installed = {'org'},
 }
 
-    require('cmp').setup({
-  sources = {
-    { name = 'orgmode' }
-  }
-})
     require('orgmode').setup({
   org_todo_keywords = {'TODO', 'WAITING', '|', 'DONE', 'DELEGATED'},
   org_todo_keyword_faces = {
@@ -31,5 +26,34 @@ require('nvim-treesitter.configs').setup {
   }
 })
 
-  end,
+  end,},
+  {
+    "akinsho/org-bullets.nvim",
+    config = function()
+      local org_bullets = require("org-bullets")
+      org_bullets.setup({
+        concealcursor = false,
+        symbols = {
+          list = "•",
+          headlines = { "◉", "○", "✸", "✿" },
+          headlines_function = function(default_list)
+            table.insert(default_list, "♥")
+            return default_list
+          end,
+          checkboxes = {
+            half = { "", "OrgTSCheckboxHalfChecked" },
+            done = { "✓", "OrgDone" },
+            todo = { "˟", "OrgTODO" },
+          },
+        },
+      })
+    end,
+  },
+  {"dhruvasagar/vim-table-mode"},
+    {
+        "lukas-reineke/headlines.nvim",
+        dependencies = "nvim-treesitter/nvim-treesitter",
+        config = true, -- or `opts = {}`
+    },
+
 }

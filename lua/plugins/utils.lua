@@ -155,4 +155,15 @@ return {
   {'akinsho/toggleterm.nvim', version = "*", opts = {--[[ things you want to change go here]]}}
 },
 
-}
+      -- Harpoon
+      {'nvim-lua/plenary.nvim'},
+      {'ThePrimeagen/harpoon'},
+
+{
+  'stevearc/oil.nvim',
+  opts = {},
+  -- Optional dependencies
+  dependencies = { "nvim-tree/nvim-web-devicons" },
+},
+
+    }

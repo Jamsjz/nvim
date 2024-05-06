@@ -20,3 +20,4 @@ vim.keymap.set("n", "<leader>fs", ":w<CR>", { noremap = true, silent = false })
 -- Wrap movement
 vim.keymap.set("n", "j", "gj")
 vim.keymap.set("n", "k", "gk")
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })

@@ -1,4 +1,4 @@
-#+TITLE: Emacs Config
+#+TITLE: Neovim Config
 #+AUTHOR: Jamsjz
 #+auto_tangel: t
 
@@ -17,6 +17,8 @@
   - [[#utils][Utils]]
 - [[#neovide][Neovide]]
 - [[#org-mode][Org-Mode]]
+- [[#plugins-config][PLUGINS CONFIG]]
+  - [[#table-org][Table org]]
 
 * About This config
 This is a simple config and a complete refactor of my previous config.
@@ -80,6 +82,7 @@ vim.keymap.set("n", "<leader>fs", ":w<CR>", { noremap = true, silent = false })
 -- Wrap movement
 vim.keymap.set("n", "j", "gj")
 vim.keymap.set("n", "k", "gk")
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 #+end_src
 
 * Lazy
@@ -182,6 +185,7 @@ vim.opt.conceallevel = 2
 vim.opt.concealcursor = 'nc'
 vim.opt.shellslash = true
 vim.cmd('language en_US.utf8')
+
 #+end_src
 
 * PLUGINS
@@ -736,7 +740,7 @@ return {
 
 #+end_src
 ** Utils
-All the utilities used in this config.
+   All the utilities used in this config.
 == UTILIS LIST ==
 *** Code Runner
 #+begin_src lua :tangle lua/plugins/utils.lua
@@ -947,12 +951,26 @@ return {
 },
 
 #+end_src
-
-*** End
+*** Harpoon
+    #+begin_src lua :tangle lua/plugins/utils.lua
+      -- Harpoon
+      {'nvim-lua/plenary.nvim'},
+      {'ThePrimeagen/harpoon'},
+    #+end_src
+*** Oil
 #+begin_src lua :tangle lua/plugins/utils.lua
-}
+{
+  'stevearc/oil.nvim',
+  opts = {},
+  -- Optional dependencies
+  dependencies = { "nvim-tree/nvim-web-devicons" },
+},
 #+end_src
 
+*** End
+    #+begin_src lua :tangle lua/plugins/utils.lua
+    }
+    #+end_src
 * Neovide
 This is all the connfiguration for neovide.
 #+begin_src lua :tangle lua/config/neovide.lua
@@ -995,7 +1013,7 @@ end
 This is the plugin for org mode in nvim.
 
 #+begin_src lua :tangle lua/plugins/nvim-org.lua
-return {
+return {{
   'nvim-orgmode/orgmode',
   event = 'VeryLazy',
   ft = { 'org' },
@@ -1014,11 +1032,6 @@ require('nvim-treesitter.configs').setup {
   ensure_installed = {'org'},
 }
 
-    require('cmp').setup({
-  sources = {
-    { name = 'orgmode' }
-  }
-})
     require('orgmode').setup({
   org_todo_keywords = {'TODO', 'WAITING', '|', 'DONE', 'DELEGATED'},
   org_todo_keyword_faces = {
@@ -1028,7 +1041,220 @@ require('nvim-treesitter.configs').setup {
   }
 })
 
-  end,
+  end,},
+  {
+    "akinsho/org-bullets.nvim",
+    config = function()
+      local org_bullets = require("org-bullets")
+      org_bullets.setup({
+        concealcursor = false,
+        symbols = {
+          list = "•",
+          headlines = { "◉", "○", "✸", "✿" },
+          headlines_function = function(default_list)
+            table.insert(default_list, "♥")
+            return default_list
+          end,
+          checkboxes = {
+            half = { "", "OrgTSCheckboxHalfChecked" },
+            done = { "✓", "OrgDone" },
+            todo = { "˟", "OrgTODO" },
+          },
+        },
+      })
+    end,
+  },
+  {"dhruvasagar/vim-table-mode"},
+    {
+        "lukas-reineke/headlines.nvim",
+        dependencies = "nvim-treesitter/nvim-treesitter",
+        config = true, -- or `opts = {}`
+    },
+
+}
+
+#+end_src
+
+* PLUGINS CONFIG
+** Table org
+#+begin_src lua :tangle lua/config/table.lua
+require("headlines").setup {
+    markdown = {
+        query = vim.treesitter.parse_query(
+            "markdown",
+            [[
+                (atx_heading [
+                    (atx_h1_marker)
+                    (atx_h2_marker)
+                    (atx_h3_marker)
+                    (atx_h4_marker)
+                    (atx_h5_marker)
+                    (atx_h6_marker)
+                ] @headline)
+
+                (thematic_break) @dash
+
+                (fenced_code_block) @codeblock
+
+                (block_quote_marker) @quote
+                (block_quote (paragraph (inline (block_continuation) @quote)))
+                (block_quote (paragraph (block_continuation) @quote))
+                (block_quote (block_continuation) @quote)
+            ]]
+        ),
+        headline_highlights = { "Headline" },
+        bullet_highlights = {
+            "@text.title.1.marker.markdown",
+            "@text.title.2.marker.markdown",
+            "@text.title.3.marker.markdown",
+            "@text.title.4.marker.markdown",
+            "@text.title.5.marker.markdown",
+            "@text.title.6.marker.markdown",
+        },
+        bullets = { "◉", "○", "✸", "✿" },
+        codeblock_highlight = "CodeBlock",
+        dash_highlight = "Dash",
+        dash_string = "-",
+        quote_highlight = "Quote",
+        quote_string = "┃",
+        fat_headlines = true,
+        fat_headline_upper_string = "▃",
+        fat_headline_lower_string = "🬂",
+    },
+    rmd = {
+        query = vim.treesitter.parse_query(
+            "markdown",
+            [[
+                (atx_heading [
+                    (atx_h1_marker)
+                    (atx_h2_marker)
+                    (atx_h3_marker)
+                    (atx_h4_marker)
+                    (atx_h5_marker)
+                    (atx_h6_marker)
+                ] @headline)
+
+                (thematic_break) @dash
+
+                (fenced_code_block) @codeblock
+
+                (block_quote_marker) @quote
+                (block_quote (paragraph (inline (block_continuation) @quote)))
+                (block_quote (paragraph (block_continuation) @quote))
+                (block_quote (block_continuation) @quote)
+            ]]
+        ),
+        treesitter_language = "markdown",
+        headline_highlights = { "Headline" },
+        bullet_highlights = {
+            "@text.title.1.marker.markdown",
+            "@text.title.2.marker.markdown",
+            "@text.title.3.marker.markdown",
+            "@text.title.4.marker.markdown",
+            "@text.title.5.marker.markdown",
+            "@text.title.6.marker.markdown",
+        },
+        bullets = { "◉", "○", "✸", "✿" },
+        codeblock_highlight = "CodeBlock",
+        dash_highlight = "Dash",
+        dash_string = "-",
+        quote_highlight = "Quote",
+        quote_string = "┃",
+        fat_headlines = true,
+        fat_headline_upper_string = "▃",
+        fat_headline_lower_string = "🬂",
+    },
+    norg = {
+        query = vim.treesitter.parse_query(
+            "norg",
+            [[
+                [
+                    (heading1_prefix)
+                    (heading2_prefix)
+                    (heading3_prefix)
+                    (heading4_prefix)
+                    (heading5_prefix)
+                    (heading6_prefix)
+                ] @headline
+
+                (weak_paragraph_delimiter) @dash
+                (strong_paragraph_delimiter) @doubledash
+
+                ([(ranged_tag
+                    name: (tag_name) @_name
+                    (#eq? @_name "code")
+                )
+                (ranged_verbatim_tag
+                    name: (tag_name) @_name
+                    (#eq? @_name "code")
+                )] @codeblock (#offset! @codeblock 0 0 1 0))
+
+                (quote1_prefix) @quote
+            ]]
+        ),
+        headline_highlights = { "Headline" },
+        bullet_highlights = {
+            "@neorg.headings.1.prefix",
+            "@neorg.headings.2.prefix",
+            "@neorg.headings.3.prefix",
+            "@neorg.headings.4.prefix",
+            "@neorg.headings.5.prefix",
+            "@neorg.headings.6.prefix",
+        },
+        bullets = { "◉", "○", "✸", "✿" },
+        codeblock_highlight = "CodeBlock",
+        dash_highlight = "Dash",
+        dash_string = "-",
+        doubledash_highlight = "DoubleDash",
+        doubledash_string = "=",
+        quote_highlight = "Quote",
+        quote_string = "┃",
+        fat_headlines = true,
+        fat_headline_upper_string = "▃",
+        fat_headline_lower_string = "🬂",
+    },
+    org = {
+        query = vim.treesitter.parse_query(
+            "org",
+            [[
+                (headline (stars) @headline)
+
+                (
+                    (expr) @dash
+                    (#match? @dash "^-----+$")
+                )
+
+                (block
+                    name: (expr) @_name
+                    (#match? @_name "(SRC|src)")
+                ) @codeblock
+
+                (paragraph . (expr) @quote
+                    (#eq? @quote ">")
+                )
+            ]]
+        ),
+        headline_highlights = { "Headline" },
+        bullet_highlights = {
+            "@org.headline.level1",
+            "@org.headline.level2",
+            "@org.headline.level3",
+            "@org.headline.level4",
+            "@org.headline.level5",
+            "@org.headline.level6",
+            "@org.headline.level7",
+            "@org.headline.level8",
+        },
+        bullets = { "◉", "○", "✸", "✿" },
+        codeblock_highlight = "CodeBlock",
+        dash_highlight = "Dash",
+        dash_string = "-",
+        quote_highlight = "Quote",
+        quote_string = "┃",
+        fat_headlines = true,
+        fat_headline_upper_string = "▃",
+        fat_headline_lower_string = "🬂",
+    },
 }
 
 #+end_src
