@@ -19,6 +19,7 @@ return {
     },
   },
 
+
   -- COLORIZER
   {
     "norcalli/nvim-colorizer.lua",
@@ -29,6 +30,8 @@ return {
       colorizer.setup()
     end,
   },
+
+
 
   -- COMMENT
   {
@@ -81,15 +84,22 @@ return {
     lazy = false,
   },
 
+
+
+
   -- TAGBAR
   {
     "preservim/tagbar",
   },
 
+
+
   -- MULTI LINE EDITING
   {
     "mg979/vim-visual-multi",
   },
+
+
 
   -- NOTIFY
   {
@@ -114,10 +124,14 @@ return {
     end,
   },
 
+
+
   -- TOGGLE TABBAR
   {
     "muellan/vim-toggle-ui-elements",
   },
+
+
 
   -- NAVIGATOR FOR TMUX PANES
   {
@@ -138,6 +152,8 @@ return {
     },
   },
 
+
+
   --SURROUND ANYTHING BY ANYTHING
   {
     "kylechui/nvim-surround",
@@ -155,7 +171,8 @@ return {
   {'akinsho/toggleterm.nvim', version = "*", opts = {--[[ things you want to change go here]]}}
 },
 
-      -- Harpoon
+
+  -- Harpoon
       {'nvim-lua/plenary.nvim'},
       {'ThePrimeagen/harpoon'},
 
@@ -166,4 +183,4 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" },
 },
 
-    }
+}

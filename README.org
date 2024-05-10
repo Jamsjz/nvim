@@ -63,7 +63,6 @@ All your custom keymaps for plugins or anything here
 -- Buffers
 vim.api.nvim_set_keymap("n", "<S-Tab>", ":bprevious<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<Tab>", ":bnext<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", "<C-BS>", "<C-W>", { noremap = true, silent = true })
 -- Cursor
 vim.api.nvim_set_keymap("i", "<C-j>", "<Down>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("i", "<C-k>", "<Up>", { noremap = true, silent = true })
@@ -646,6 +645,8 @@ return {
 ** Completion
 For completion I use cmp.
 Tab and enter will complete it.
+
+nvim-cmp
 #+begin_src lua :tangle lua/plugins/cmp.lua
 
 return {
@@ -739,6 +740,22 @@ return {
 }
 
 #+end_src
+codeium
+#+begin_src lua :tangle lua/plugins/codeium.lua
+return {
+    "Exafunction/codeium.nvim",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        "hrsh7th/nvim-cmp",
+    },
+    config = function()
+        require("codeium").setup({
+        })
+    end
+}
+#+end_src
+
+   
 ** Utils
    All the utilities used in this config.
 == UTILIS LIST ==
