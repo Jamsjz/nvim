@@ -23,6 +23,13 @@
 * About This config
 This is a simple config and a complete refactor of my previous config.
 This config is still in the process of being made.
+
+* Installation
+1. Make backup of your config
+2. Clone this repo in $HOME/.config folder
+3. Remove all local cache and share data of nvim.
+4. Open nvim
+
 * Initialization
 #+begin_src lua :tangle init.lua
 require("config.lazy")
