@@ -5,7 +5,18 @@ return {
     name = "catppuccin",
     priority = 1000
   },
-  {
+  
+     { "rose-pine/neovim", 
+        name = "rose-pine" },
+           {
+    'AlexvZyl/nordic.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function()
+        require 'nordic' .load()
+    end
+},
+    {
     "sainnhe/gruvbox-material",
     priority = 1000,
     config = function()
@@ -15,11 +26,9 @@ return {
       vim.cmd("let g:gruvbox_material_diagnostic_virtual_text='colored'")
       vim.cmd("let g:gruvbox_material_enable_bold=1")
       vim.cmd("let g:gruvbox_material_enable_italic=1")
-      vim.cmd([[colorscheme rose-pine]]) -- Set color scheme ............ set colorscheme here
+      vim.cmd([[colorscheme nordic]]) -- Set color scheme ............ set colorscheme here
       vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })
       vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "Normal" })
       vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
   end,},
-     { "rose-pine/neovim", 
-        name = "rose-pine" },
 }
