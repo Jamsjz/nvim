@@ -38,3 +38,5 @@ vim.opt.conceallevel = 2
 vim.opt.concealcursor = 'nc'
 vim.opt.shellslash = true
 vim.cmd('language en_US.utf8')
+vim.opt.cursorline = true
+vim.opt.scrolloff = 10

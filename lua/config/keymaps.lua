@@ -1,6 +1,7 @@
 -- Buffers
 vim.api.nvim_set_keymap("n", "<S-Tab>", ":bprevious<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<Tab>", ":bnext<CR>", { noremap = true, silent = true })
+
 -- Cursor
 vim.api.nvim_set_keymap("i", "<C-j>", "<Down>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("i", "<C-k>", "<Up>", { noremap = true, silent = true })
@@ -20,3 +21,5 @@ vim.keymap.set("n", "<leader>fs", ":w<CR>", { noremap = true, silent = false })
 vim.keymap.set("n", "j", "gj")
 vim.keymap.set("n", "k", "gk")
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+-- Bind Control + Backspace to Control + W in insert mode
+vim.api.nvim_set_keymap('i', '<C-BS>', '<C-W>', { noremap = true, silent = true })
