@@ -196,6 +196,9 @@ vim.cmd('language en_US.utf8')
 vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 
+-- Shell
+vim.o.shell = '/usr/bin/fish'
+
 #+end_src
 
 * PLUGINS
@@ -986,7 +989,11 @@ return {
 #+begin_src lua :tangle lua/plugins/utils.lua
 -- Toggle term
 {
-  {'akinsho/toggleterm.nvim', version = "*", opts = {--[[ things you want to change go here]]}}
+  'akinsho/toggleterm.nvim',
+  version = "*",
+  opts = {
+    shell = vim.o.shell,
+  }
 },
 
 #+end_src

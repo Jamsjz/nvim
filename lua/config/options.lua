@@ -39,3 +39,6 @@ vim.opt.concealcursor = 'nc'
 vim.cmd('language en_US.utf8')
 vim.opt.cursorline = true
 vim.opt.scrolloff = 10
+
+-- Shell
+vim.o.shell = '/usr/bin/fish'
