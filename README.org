@@ -69,7 +69,15 @@ All your custom keymaps for plugins or anything here
 #+begin_src lua :tangle lua/config/keymaps.lua
 -- Buffers
 vim.api.nvim_set_keymap("n", "<S-Tab>", ":bprevious<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>sx", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.api.nvim_set_keymap("n", "<Tab>", ":bnext<CR>", { noremap = true, silent = true })
+vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
+vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
+vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
 -- Cursor
 vim.api.nvim_set_keymap("i", "<C-j>", "<Down>", { noremap = true, silent = true })
@@ -108,8 +116,8 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 require("lazy").setup({
   spec = {
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- { import = "lazyvim.plugins.extras.lang.typescript" },
-    -- { import = "lazyvim.plugins.extras.lang.json" },
+     { import = "lazyvim.plugins.extras.lang.typescript" },
+    { import = "lazyvim.plugins.extras.lang.json" },
     -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
     -- import/override with your plugins
     { import = "plugins" },
@@ -118,7 +126,7 @@ require("lazy").setup({
     lazy = false,
     version = false,
   },
-  install = { colorscheme = { "tokyonight" } },
+  install = { colorscheme = { "tokyonight","catppuccin" } },
   checker = { enabled = true },
   performance = {
     rtp = {
@@ -158,6 +166,22 @@ Default options that are always set from [[https://github.com/LazyVim/LazyVim/bl
 vim.opt.termguicolors = true
 vim.o.pumheight = 10
 vim.o.cmdheight = 1
+
+--tab
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+
+-- smartindent
+vim.opt.smartindent = true
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undofile = false
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
+vim.opt.colorcolumn = "80"
+vim.opt.updatetime = 50
 
 -- Update and backups
 vim.o.showmode = false
@@ -203,7 +227,7 @@ vim.o.shell = '/usr/bin/fish'
 
 * PLUGINS
 ** Themes
-The default theme is nordic
+The default theme is catppuccin
 
 #+begin_src lua :tangle lua/plugins/themes.lua
 
@@ -218,13 +242,13 @@ return {
       vim.cmd("let g:gruvbox_material_diagnostic_virtual_text='colored'")
       vim.cmd("let g:gruvbox_material_enable_bold=1")
       vim.cmd("let g:gruvbox_material_enable_italic=1")
-      vim.cmd([[colorscheme catppuccin]]) -- Set color scheme ............ set colorscheme here
       vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })
       vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "Normal" })
       vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
+      vim.cmd([[colorscheme catppuccin]])
   end,},
-  
-     { "rose-pine/neovim", 
+
+     { "rose-pine/neovim",
         name = "rose-pine" },
            {
     'AlexvZyl/nordic.nvim',
@@ -237,7 +261,7 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    priority = 1000
+    priority = 1001
   }
 }
 
@@ -780,7 +804,7 @@ return {
 }
 #+end_src
 
-   
+
 ** Utils
    All the utilities used in this config.
 == UTILIS LIST ==
@@ -1013,6 +1037,46 @@ return {
 },
 #+end_src
 
+*** Zen-mode
+#+begin_src lua :tangle lua/plugins/utils.lua
+
+{
+    "folke/zen-mode.nvim",
+    config = function()
+        vim.keymap.set("n", "<leader>zz", function()
+            require("zen-mode").setup {
+                window = {
+                    width = 90,
+                    options = { }
+                },
+            }
+            require("zen-mode").toggle()
+            vim.wo.wrap = false
+            vim.wo.number = true
+            vim.wo.rnu = true
+            ColorMyPencils()
+        end)
+
+
+        vim.keymap.set("n", "<leader>zZ", function()
+            require("zen-mode").setup {
+                window = {
+                    width = 80,
+                    options = { }
+                },
+            }
+            require("zen-mode").toggle()
+            vim.wo.wrap = false
+            vim.wo.number = false
+            vim.wo.rnu = false
+            vim.opt.colorcolumn = "0"
+            ColorMyPencils()
+        end)
+    end
+}
+#+end_src
+
+
 *** End
     #+begin_src lua :tangle lua/plugins/utils.lua
     }
@@ -1121,8 +1185,8 @@ require('nvim-treesitter.configs').setup {
 
 #+end_src
 
-* PLUGINS CONFIG
-** Table org
+* plugins config
+** table org
 #+begin_src lua :tangle lua/config/table.lua
 require("headlines").setup {
     markdown = {
@@ -1148,7 +1212,7 @@ require("headlines").setup {
                 (block_quote (block_continuation) @quote)
             ]]
         ),
-        headline_highlights = { "Headline" },
+        headline_highlights = { "headline" },
         bullet_highlights = {
             "@text.title.1.marker.markdown",
             "@text.title.2.marker.markdown",
@@ -1158,10 +1222,10 @@ require("headlines").setup {
             "@text.title.6.marker.markdown",
         },
         bullets = { "◉", "○", "✸", "✿" },
-        codeblock_highlight = "CodeBlock",
-        dash_highlight = "Dash",
+        codeblock_highlight = "codeblock",
+        dash_highlight = "dash",
         dash_string = "-",
-        quote_highlight = "Quote",
+        quote_highlight = "quote",
         quote_string = "┃",
         fat_headlines = true,
         fat_headline_upper_string = "▃",
@@ -1191,7 +1255,7 @@ require("headlines").setup {
             ]]
         ),
         treesitter_language = "markdown",
-        headline_highlights = { "Headline" },
+        headline_highlights = { "headline" },
         bullet_highlights = {
             "@text.title.1.marker.markdown",
             "@text.title.2.marker.markdown",
@@ -1201,10 +1265,10 @@ require("headlines").setup {
             "@text.title.6.marker.markdown",
         },
         bullets = { "◉", "○", "✸", "✿" },
-        codeblock_highlight = "CodeBlock",
-        dash_highlight = "Dash",
+        codeblock_highlight = "codeblock",
+        dash_highlight = "dash",
         dash_string = "-",
-        quote_highlight = "Quote",
+        quote_highlight = "quote",
         quote_string = "┃",
         fat_headlines = true,
         fat_headline_upper_string = "▃",
@@ -1238,7 +1302,7 @@ require("headlines").setup {
                 (quote1_prefix) @quote
             ]]
         ),
-        headline_highlights = { "Headline" },
+        headline_highlights = { "headline" },
         bullet_highlights = {
             "@neorg.headings.1.prefix",
             "@neorg.headings.2.prefix",
@@ -1248,12 +1312,12 @@ require("headlines").setup {
             "@neorg.headings.6.prefix",
         },
         bullets = { "◉", "○", "✸", "✿" },
-        codeblock_highlight = "CodeBlock",
-        dash_highlight = "Dash",
+        codeblock_highlight = "codeblock",
+        dash_highlight = "dash",
         dash_string = "-",
-        doubledash_highlight = "DoubleDash",
+        doubledash_highlight = "doubledash",
         doubledash_string = "=",
-        quote_highlight = "Quote",
+        quote_highlight = "quote",
         quote_string = "┃",
         fat_headlines = true,
         fat_headline_upper_string = "▃",
@@ -1272,7 +1336,7 @@ require("headlines").setup {
 
                 (block
                     name: (expr) @_name
-                    (#match? @_name "(SRC|src)")
+                    (#match? @_name "(src|src)")
                 ) @codeblock
 
                 (paragraph . (expr) @quote
@@ -1280,7 +1344,7 @@ require("headlines").setup {
                 )
             ]]
         ),
-        headline_highlights = { "Headline" },
+        headline_highlights = { "headline" },
         bullet_highlights = {
             "@org.headline.level1",
             "@org.headline.level2",
@@ -1292,10 +1356,10 @@ require("headlines").setup {
             "@org.headline.level8",
         },
         bullets = { "◉", "○", "✸", "✿" },
-        codeblock_highlight = "CodeBlock",
-        dash_highlight = "Dash",
+        codeblock_highlight = "codeblock",
+        dash_highlight = "dash",
         dash_string = "-",
-        quote_highlight = "Quote",
+        quote_highlight = "quote",
         quote_string = "┃",
         fat_headlines = true,
         fat_headline_upper_string = "▃",

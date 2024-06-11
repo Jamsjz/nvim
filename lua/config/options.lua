@@ -3,6 +3,22 @@ vim.opt.termguicolors = true
 vim.o.pumheight = 10
 vim.o.cmdheight = 1
 
+--tab
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+
+-- smartindent
+vim.opt.smartindent = true
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undofile = false
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
+vim.opt.colorcolumn = "80"
+vim.opt.updatetime = 50
+
 -- Update and backups
 vim.o.showmode = false
 vim.o.backup = false

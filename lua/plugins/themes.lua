@@ -10,13 +10,13 @@ return {
       vim.cmd("let g:gruvbox_material_diagnostic_virtual_text='colored'")
       vim.cmd("let g:gruvbox_material_enable_bold=1")
       vim.cmd("let g:gruvbox_material_enable_italic=1")
-      vim.cmd([[colorscheme catppuccin]]) -- Set color scheme ............ set colorscheme here
       vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })
       vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "Normal" })
       vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
+      vim.cmd([[colorscheme catppuccin]])
   end,},
-  
-     { "rose-pine/neovim", 
+
+     { "rose-pine/neovim",
         name = "rose-pine" },
            {
     'AlexvZyl/nordic.nvim',
@@ -29,6 +29,6 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    priority = 1000
+    priority = 1001
   }
 }

@@ -22,7 +22,7 @@ require("headlines").setup {
                 (block_quote (block_continuation) @quote)
             ]]
         ),
-        headline_highlights = { "Headline" },
+        headline_highlights = { "headline" },
         bullet_highlights = {
             "@text.title.1.marker.markdown",
             "@text.title.2.marker.markdown",
@@ -32,10 +32,10 @@ require("headlines").setup {
             "@text.title.6.marker.markdown",
         },
         bullets = { "◉", "○", "✸", "✿" },
-        codeblock_highlight = "CodeBlock",
-        dash_highlight = "Dash",
+        codeblock_highlight = "codeblock",
+        dash_highlight = "dash",
         dash_string = "-",
-        quote_highlight = "Quote",
+        quote_highlight = "quote",
         quote_string = "┃",
         fat_headlines = true,
         fat_headline_upper_string = "▃",
@@ -65,7 +65,7 @@ require("headlines").setup {
             ]]
         ),
         treesitter_language = "markdown",
-        headline_highlights = { "Headline" },
+        headline_highlights = { "headline" },
         bullet_highlights = {
             "@text.title.1.marker.markdown",
             "@text.title.2.marker.markdown",
@@ -75,10 +75,10 @@ require("headlines").setup {
             "@text.title.6.marker.markdown",
         },
         bullets = { "◉", "○", "✸", "✿" },
-        codeblock_highlight = "CodeBlock",
-        dash_highlight = "Dash",
+        codeblock_highlight = "codeblock",
+        dash_highlight = "dash",
         dash_string = "-",
-        quote_highlight = "Quote",
+        quote_highlight = "quote",
         quote_string = "┃",
         fat_headlines = true,
         fat_headline_upper_string = "▃",
@@ -112,7 +112,7 @@ require("headlines").setup {
                 (quote1_prefix) @quote
             ]]
         ),
-        headline_highlights = { "Headline" },
+        headline_highlights = { "headline" },
         bullet_highlights = {
             "@neorg.headings.1.prefix",
             "@neorg.headings.2.prefix",
@@ -122,12 +122,12 @@ require("headlines").setup {
             "@neorg.headings.6.prefix",
         },
         bullets = { "◉", "○", "✸", "✿" },
-        codeblock_highlight = "CodeBlock",
-        dash_highlight = "Dash",
+        codeblock_highlight = "codeblock",
+        dash_highlight = "dash",
         dash_string = "-",
-        doubledash_highlight = "DoubleDash",
+        doubledash_highlight = "doubledash",
         doubledash_string = "=",
-        quote_highlight = "Quote",
+        quote_highlight = "quote",
         quote_string = "┃",
         fat_headlines = true,
         fat_headline_upper_string = "▃",
@@ -146,7 +146,7 @@ require("headlines").setup {
 
                 (block
                     name: (expr) @_name
-                    (#match? @_name "(SRC|src)")
+                    (#match? @_name "(src|src)")
                 ) @codeblock
 
                 (paragraph . (expr) @quote
@@ -154,7 +154,7 @@ require("headlines").setup {
                 )
             ]]
         ),
-        headline_highlights = { "Headline" },
+        headline_highlights = { "headline" },
         bullet_highlights = {
             "@org.headline.level1",
             "@org.headline.level2",
@@ -166,10 +166,10 @@ require("headlines").setup {
             "@org.headline.level8",
         },
         bullets = { "◉", "○", "✸", "✿" },
-        codeblock_highlight = "CodeBlock",
-        dash_highlight = "Dash",
+        codeblock_highlight = "codeblock",
+        dash_highlight = "dash",
         dash_string = "-",
-        quote_highlight = "Quote",
+        quote_highlight = "quote",
         quote_string = "┃",
         fat_headlines = true,
         fat_headline_upper_string = "▃",
