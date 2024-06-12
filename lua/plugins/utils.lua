@@ -19,7 +19,6 @@ return {
     },
   },
 
-
   -- COLORIZER
   {
     "norcalli/nvim-colorizer.lua",
@@ -30,8 +29,6 @@ return {
       colorizer.setup()
     end,
   },
-
-
 
   -- COMMENT
   {
@@ -83,23 +80,34 @@ return {
     },
     lazy = false,
   },
-
-
-
+  {
+    "echasnovski/mini.comment",
+    event = "VeryLazy",
+    opts = {
+      options = {
+        custom_commentstring = function()
+          return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
+        end,
+      },
+    },
+  },
+  {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    lazy = true,
+    opts = {
+      enable_autocmd = false,
+    },
+  },
 
   -- TAGBAR
   {
     "preservim/tagbar",
   },
 
-
-
   -- MULTI LINE EDITING
   {
     "mg979/vim-visual-multi",
   },
-
-
 
   -- NOTIFY
   {
@@ -124,14 +132,10 @@ return {
     end,
   },
 
-
-
   -- TOGGLE TABBAR
   {
     "muellan/vim-toggle-ui-elements",
   },
-
-
 
   -- NAVIGATOR FOR TMUX PANES
   {
@@ -151,8 +155,6 @@ return {
       { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
     },
   },
-
-
 
   --SURROUND ANYTHING BY ANYTHING
   {
@@ -175,18 +177,21 @@ return {
   }
 },
 
-
-  -- Harpoon
-      {'nvim-lua/plenary.nvim'},
-      {'ThePrimeagen/harpoon'},
-
+      -- Harpoon
 {
-  'stevearc/oil.nvim',
-  opts = {},
-  -- Optional dependencies
-  dependencies = { "nvim-tree/nvim-web-devicons" },
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" }
 },
 
+{
+  { 'stevearc/oil.nvim', opts = {
+    default_file_explorer = true,
+    view_options = {
+      show_hidden = true,
+    },
+  } },
+},
 
 {
     "folke/zen-mode.nvim",
@@ -221,6 +226,71 @@ return {
             ColorMyPencils()
         end)
     end
-}
+},
 
-}
+  {
+    "nvim-lualine/lualine.nvim",
+    optional = true,
+    event = "VeryLazy",
+    opts = function(_, opts)
+      table.insert(opts.sections.lualine_x, 2, LazyVim.lualine.cmp_source("codeium"))
+    end,
+  },
+
+  {
+    "L3MON4D3/LuaSnip",
+    build = (not LazyVim.is_win())
+        and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
+      or nil,
+    dependencies = {
+      {
+        "rafamadriz/friendly-snippets",
+        config = function()
+          require("luasnip.loaders.from_vscode").lazy_load()
+        end,
+      },
+      {
+        "nvim-cmp",
+        dependencies = {
+          "saadparwaiz1/cmp_luasnip",
+        },
+        opts = function(_, opts)
+          opts.snippet = {
+            expand = function(args)
+              require("luasnip").lsp_expand(args.body)
+            end,
+          }
+          table.insert(opts.sources, { name = "luasnip" })
+        end,
+      },
+    },
+    opts = {
+      history = true,
+      delete_check_events = "TextChanged",
+    },
+  },
+  {
+    "nvim-cmp",
+    -- stylua: ignore
+    keys = {
+      {
+        "<tab>",
+        function()
+          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
+        end,
+        expr = true, silent = true, mode = "i",
+      },
+      { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
+      { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
+    },
+  },
+  {
+    "garymjr/nvim-snippets",
+    enabled = false,
+  },
+
+{
+  "echasnovski/mini.bufremove",
+},
+
+    }

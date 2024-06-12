@@ -4,6 +4,7 @@
 
 * TABLE OF CONTENTS :toc:
 - [[#about-this-config][About This config]]
+- [[#installation][Installation]]
 - [[#initialization][Initialization]]
 - [[#style][Style]]
 - [[#autocmd][Autocmd]]
@@ -17,8 +18,8 @@
   - [[#utils][Utils]]
 - [[#neovide][Neovide]]
 - [[#org-mode][Org-Mode]]
-- [[#plugins-config][PLUGINS CONFIG]]
-  - [[#table-org][Table org]]
+- [[#plugins-config][plugins config]]
+  - [[#table-org][table org]]
 
 * About This config
 This is a simple config and a complete refactor of my previous config.
@@ -48,6 +49,7 @@ The src in this block will be automatically executed when nvim starts.
 
 == This block is for neovide to change scale factor that is zoom in or out with ^+ or -a ==
 #+begin_src lua :tangle lua/config/autocmds.lua
+vim.cmd.colorscheme "catppuccin"
 #+end_src
 
 * Keymaps
@@ -100,6 +102,7 @@ vim.keymap.set("n", "k", "gk")
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 -- Bind Control + Backspace to Control + W in insert mode
 vim.api.nvim_set_keymap('i', '<C-BS>', '<C-W>', { noremap = true, silent = true })
+
 #+end_src
 
 * Lazy
@@ -126,7 +129,7 @@ require("lazy").setup({
     lazy = false,
     version = false,
   },
-  install = { colorscheme = { "tokyonight","catppuccin" } },
+  install = { colorscheme = {  } },
   checker = { enabled = true },
   performance = {
     rtp = {
@@ -232,37 +235,8 @@ The default theme is catppuccin
 #+begin_src lua :tangle lua/plugins/themes.lua
 
 return {
-{
-    "sainnhe/gruvbox-material",
-    priority = 1000,
-    config = function()
-      vim.o.background = "dark" -- or "light" for light mode
-      vim.cmd("let g:gruvbox_material_background= 'hard'")
-      vim.cmd("let g:gruvbox_material_diagnostic_line_highlight=1")
-      vim.cmd("let g:gruvbox_material_diagnostic_virtual_text='colored'")
-      vim.cmd("let g:gruvbox_material_enable_bold=1")
-      vim.cmd("let g:gruvbox_material_enable_italic=1")
-      vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })
-      vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "Normal" })
-      vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
-      vim.cmd([[colorscheme catppuccin]])
-  end,},
-
-     { "rose-pine/neovim",
-        name = "rose-pine" },
-           {
-    'AlexvZyl/nordic.nvim',
-    lazy = false,
-    priority = 1000,
-    config = function()
-        require 'nordic' .load()
-    end
-},
-  {
     "catppuccin/nvim",
-    name = "catppuccin",
-    priority = 1001
-  }
+    priority = 1000,
 }
 
 #+end_src
@@ -711,7 +685,22 @@ return {
     "L3MON4D3/LuaSnip",
     "rafamadriz/friendly-snippets",
     "onsails/lspkind.nvim",
+     {
+        "Exafunction/codeium.nvim",
+        cmd = "Codeium",
+        build = ":Codeium Auth",
+        opts = {},
+      },
   },
+      ---@param opts cmp.ConfigSchema
+    opts = function(_, opts)
+      table.insert(opts.sources, 1, {
+        name = "codeium",
+        group_index = 1,
+        priority = 100,
+      })
+    end,
+
 
   config = function()
     local cmp = require("cmp")
@@ -803,7 +792,6 @@ return {
     end
 }
 #+end_src
-
 
 ** Utils
    All the utilities used in this config.
@@ -903,8 +891,24 @@ return {
     },
     lazy = false,
   },
-
-
+  {
+    "echasnovski/mini.comment",
+    event = "VeryLazy",
+    opts = {
+      options = {
+        custom_commentstring = function()
+          return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
+        end,
+      },
+    },
+  },
+  {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    lazy = true,
+    opts = {
+      enable_autocmd = false,
+    },
+  },
 #+end_src
 
 *** Tagbar
@@ -1024,16 +1028,21 @@ return {
 *** Harpoon
     #+begin_src lua :tangle lua/plugins/utils.lua
       -- Harpoon
-      {'nvim-lua/plenary.nvim'},
-      {'ThePrimeagen/harpoon'},
+{
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" }
+},
     #+end_src
 *** Oil
 #+begin_src lua :tangle lua/plugins/utils.lua
 {
-  'stevearc/oil.nvim',
-  opts = {},
-  -- Optional dependencies
-  dependencies = { "nvim-tree/nvim-web-devicons" },
+  { 'stevearc/oil.nvim', opts = {
+    default_file_explorer = true,
+    view_options = {
+      show_hidden = true,
+    },
+  } },
 },
 #+end_src
 
@@ -1073,10 +1082,80 @@ return {
             ColorMyPencils()
         end)
     end
-}
+},
 #+end_src
 
-
+*** Lualine
+#+begin_src lua :tangle lua/plugins/utils.lua
+  {
+    "nvim-lualine/lualine.nvim",
+    optional = true,
+    event = "VeryLazy",
+    opts = function(_, opts)
+      table.insert(opts.sections.lualine_x, 2, LazyVim.lualine.cmp_source("codeium"))
+    end,
+  },
+#+end_src
+*** Luasnip
+#+begin_src lua :tangle lua/plugins/utils.lua
+  {
+    "L3MON4D3/LuaSnip",
+    build = (not LazyVim.is_win())
+        and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
+      or nil,
+    dependencies = {
+      {
+        "rafamadriz/friendly-snippets",
+        config = function()
+          require("luasnip.loaders.from_vscode").lazy_load()
+        end,
+      },
+      {
+        "nvim-cmp",
+        dependencies = {
+          "saadparwaiz1/cmp_luasnip",
+        },
+        opts = function(_, opts)
+          opts.snippet = {
+            expand = function(args)
+              require("luasnip").lsp_expand(args.body)
+            end,
+          }
+          table.insert(opts.sources, { name = "luasnip" })
+        end,
+      },
+    },
+    opts = {
+      history = true,
+      delete_check_events = "TextChanged",
+    },
+  },
+  {
+    "nvim-cmp",
+    -- stylua: ignore
+    keys = {
+      {
+        "<tab>",
+        function()
+          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
+        end,
+        expr = true, silent = true, mode = "i",
+      },
+      { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
+      { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
+    },
+  },
+  {
+    "garymjr/nvim-snippets",
+    enabled = false,
+  },
+#+end_src
+*** Bufremove
+#+begin_src lua :tangle lua/plugins/utils.lua
+{
+  "echasnovski/mini.bufremove",
+},
+#+end_src
 *** End
     #+begin_src lua :tangle lua/plugins/utils.lua
     }
