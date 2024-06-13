@@ -50,6 +50,7 @@ The src in this block will be automatically executed when nvim starts.
 == This block is for neovide to change scale factor that is zoom in or out with ^+ or -a ==
 #+begin_src lua :tangle lua/config/autocmds.lua
 vim.cmd.colorscheme "catppuccin"
+
 #+end_src
 
 * Keymaps

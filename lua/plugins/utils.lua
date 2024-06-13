@@ -19,6 +19,7 @@ return {
     },
   },
 
+
   -- COLORIZER
   {
     "norcalli/nvim-colorizer.lua",
@@ -29,6 +30,8 @@ return {
       colorizer.setup()
     end,
   },
+
+
 
   -- COMMENT
   {
@@ -99,15 +102,20 @@ return {
     },
   },
 
+
   -- TAGBAR
   {
     "preservim/tagbar",
   },
 
+
+
   -- MULTI LINE EDITING
   {
     "mg979/vim-visual-multi",
   },
+
+
 
   -- NOTIFY
   {
@@ -132,10 +140,14 @@ return {
     end,
   },
 
+
+
   -- TOGGLE TABBAR
   {
     "muellan/vim-toggle-ui-elements",
   },
+
+
 
   -- NAVIGATOR FOR TMUX PANES
   {
@@ -155,6 +167,8 @@ return {
       { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
     },
   },
+
+
 
   --SURROUND ANYTHING BY ANYTHING
   {
@@ -177,7 +191,8 @@ return {
   }
 },
 
-      -- Harpoon
+
+  -- Harpoon
 {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
@@ -192,6 +207,7 @@ return {
     },
   } },
 },
+
 
 {
     "folke/zen-mode.nvim",
@@ -293,4 +309,4 @@ return {
   "echasnovski/mini.bufremove",
 },
 
-    }
+}
