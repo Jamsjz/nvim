@@ -49,7 +49,7 @@ The src in this block will be automatically executed when nvim starts.
 
 == This block is for neovide to change scale factor that is zoom in or out with ^+ or -a ==
 #+begin_src lua :tangle lua/config/autocmds.lua
-vim.cmd.colorscheme "catppuccin"
+-- vim.cmd.colorscheme "catppuccin"
 
 #+end_src
 
@@ -236,8 +236,14 @@ The default theme is catppuccin
 #+begin_src lua :tangle lua/plugins/themes.lua
 
 return {
-    "catppuccin/nvim",
-    priority = 1000,
+  -- Configure LazyVim to load dracula
+{ "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...},
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "gruvbox",
+    },
+  },
 }
 
 #+end_src
