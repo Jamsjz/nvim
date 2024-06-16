@@ -70,6 +70,14 @@ return {
       formatting = {
         format = lspkind.cmp_format({ with_text = true, maxwidth = 50 }),
       },
+         sources = {
+    {
+      name = 'path',
+      option = {
+        -- Options go into this table
+      },
+    },
+  },
     })
 
     -- Set configuration for specific filetype.
