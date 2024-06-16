@@ -188,13 +188,13 @@ vim.opt.incsearch = true
 vim.opt.colorcolumn = "80"
 vim.opt.updatetime = 50
 
+  vim.o.clipboard = "unnamedplus"
 -- Update and backups
 vim.o.showmode = false
 vim.o.backup = false
 vim.o.writebackup = false
 vim.o.updatetime = 300
 vim.o.timeoutlen = 100
-
 -- Backspace key
 vim.o.backspace = "indent,eol,start"
 -- Get the current 'iskeyword' setting
