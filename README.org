@@ -88,13 +88,9 @@ vim.api.nvim_set_keymap("i", "<C-k>", "<Up>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("i", "<C-h>", "<Left>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("i", "<C-l>", "<Right>", { noremap = true, silent = true })
 -- Code runner
-vim.keymap.set("n", "<leader>r", ":RunCode<CR>", { noremap = true, silent = false })
-vim.keymap.set("n", "<leader>rf", ":RunFile<CR>", { noremap = true, silent = false })
-vim.keymap.set("n", "<leader>rft", ":RunFile tab<CR>", { noremap = true, silent = false })
-vim.keymap.set("n", "<leader>rp", ":RunProject<CR>", { noremap = true, silent = false })
-vim.keymap.set("n", "<leader>rc", ":RunClose<CR>", { noremap = true, silent = false })
-vim.keymap.set("n", "<leader>crf", ":CRFiletype<CR>", { noremap = true, silent = false })
-vim.keymap.set("n", "<leader>crp", ":CRProjects<CR>", { noremap = true, silent = false })
+vim.keymap.set("n", "<leader>rr", ":RunCode<CR>", { noremap = true, silent = false })
+vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { noremap = true, silent = false })
+vim.keymap.set("n", "<leader>rq", ":RunProject<CR>", { noremap = true, silent = false })
 vim.keymap.set("n", ";", ":", { noremap = true, silent = false })
 vim.keymap.set("n", "<leader>fs", ":w<CR>", { noremap = true, silent = false })
 -- Wrap movement
@@ -185,7 +181,7 @@ vim.opt.backup = false
 vim.opt.undofile = false
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "90"
 vim.opt.updatetime = 50
 
   vim.o.clipboard = "unnamedplus"
@@ -631,17 +627,15 @@ return {
         config = {
           header = vim.split(logo, "\n"),
           -- stylua: ignore
-          center = {
-            { action = "Telescope find_files",                                     desc = " Find file",       icon = " ", key = "f" },
-            { action = "ene | startinsert",                                        desc = " New file",        icon = " ", key = "n" },
-            { action = "Telescope oldfiles",                                       desc = " Recent files",    icon = " ", key = "r" },
-            { action = "Telescope live_grep",                                      desc = " Find text",       icon = " ", key = "g" },
-            { action = [[lua require("lazyvim.util").telescope.config_files()()]], desc = " Config",          icon = " ", key = "c" },
-            { action = 'lua require("persistence").load()',                        desc = " Restore Session", icon = " ", key = "s" },
-            -- { action = "LazyExtras",                                               desc = " Lazy Extras",     icon = " ", key = "x" },
-            -- { action = "Lazy",                                                     desc = " Lazy",            icon = "󰒲 ", key = "l" },
-            { action = "qa",                                                       desc = " Quit",            icon = " ", key = "q" },
-          },
+center = {
+    { action = [[lua require("fzf-lua").files()]],                             desc = " Find file",       icon = " ", key = "f" },
+    { action = "ene | startinsert",                                            desc = " New file",        icon = " ", key = "n" },
+    { action = [[lua require("fzf-lua").oldfiles()]],                          desc = " Recent files",    icon = " ", key = "r" },
+    { action = [[lua require("fzf-lua").live_grep()]],                         desc = " Find text",       icon = " ", key = "g" },
+    { action = [[lua require("lazyvim.util").pick.config_files()()]],          desc = "Config",           icon = " ", key = "c" },
+    { action = 'lua require("persistence").load()',                            desc = " Restore Session", icon = " ", key = "s" },
+    { action = "LazyExtras",                                                   desc = " Lazy Extras",     icon = " ", key = "x" },
+},
           footer = function()
             local stats = require("lazy").stats()
             local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)

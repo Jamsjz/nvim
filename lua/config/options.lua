@@ -16,7 +16,7 @@ vim.opt.backup = false
 vim.opt.undofile = false
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "90"
 vim.opt.updatetime = 50
 
   vim.o.clipboard = "unnamedplus"
