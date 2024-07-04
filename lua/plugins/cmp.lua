@@ -13,12 +13,9 @@ return {
     "rafamadriz/friendly-snippets",
     "onsails/lspkind.nvim",
     {
-      "Exafunction/codeium.nvim",
-      cmd = "Codeium",
-      build = ":Codeium Auth",
-      opts = {},
+      "supermaven-inc/supermaven-nvim",
       config = function()
-        require("codeium").setup({})
+        require("supermaven-nvim").setup({})
       end,
     },
   },
@@ -54,11 +51,11 @@ return {
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.abort(),
         ["<CR>"] = cmp.mapping.confirm({ select = false }),
-        ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
+        -- ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
       }),
       sources = cmp.config.sources({
         { name = "nvim_lsp" },
-        { name = "codeium" },
+        -- { name = "codeium" },
         { name = "luasnip" },
         { name = "buffer" },
         { name = "path" },

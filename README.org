@@ -234,11 +234,13 @@ The default theme is catppuccin
 
 return {
   -- Configure LazyVim to load dracula
-{ "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...},
+  { "ellisonleao/gruvbox.nvim", config = true, opts = ...},
+  {"olimorris/onedarkpro.nvim", priority = 1000},
+
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "gruvbox",
+      colorscheme = "onedark_dark",
     },
   },
 }
@@ -688,12 +690,9 @@ rreturn {
     "rafamadriz/friendly-snippets",
     "onsails/lspkind.nvim",
     {
-      "Exafunction/codeium.nvim",
-      cmd = "Codeium",
-      build = ":Codeium Auth",
-      opts = {},
+      "supermaven-inc/supermaven-nvim",
       config = function()
-        require("codeium").setup({})
+        require("supermaven-nvim").setup({})
       end,
     },
   },
@@ -729,11 +728,11 @@ rreturn {
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.abort(),
         ["<CR>"] = cmp.mapping.confirm({ select = false }),
-        ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
+        -- ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
       }),
       sources = cmp.config.sources({
         { name = "nvim_lsp" },
-        { name = "codeium" },
+        -- { name = "codeium" },
         { name = "luasnip" },
         { name = "buffer" },
         { name = "path" },
