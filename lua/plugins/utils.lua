@@ -200,7 +200,9 @@ return {
 },
 
 {
-  { 'stevearc/oil.nvim', opts = {
+  { 'stevearc/oil.nvim', 
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
     default_file_explorer = true,
     view_options = {
       show_hidden = true,
@@ -308,5 +310,22 @@ return {
 {
   "echasnovski/mini.bufremove",
 },
+
+{"ThePrimeagen/vim-be-good"},
+
+{
+    "vhyrro/luarocks.nvim",
+    priority = 1000,
+    config = true,
+    },
+    {
+        "nvim-neorg/neorg",
+        dependencies = { "luarocks.nvim" },
+        lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+        version = "*", -- Pin Neorg to the latest stable release
+        config = function()
+            require("neorg").setup({})
+        end,
+    },
 
 }

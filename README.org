@@ -588,19 +588,6 @@ return {
   { "MunifTanjim/nui.nvim", lazy = true },
 
   {
-    "goolord/alpha-nvim",
-    optional = true,
-    enabled = function()
-      require("lazyvim.util").warn({
-        "`dashboard.nvim` is now the default LazyVim starter plugin.",
-        "",
-        "To keep using `alpha.nvim`, please enable the `lazyvim.plugins.extras.ui.alpha` extra.",
-        "Or to hide this message, remove the alpha spec from your config.",
-      })
-      return false
-    end,
-  },
-  {
     "nvimdev/dashboard-nvim",
     event = "VimEnter",
     opts = function()
@@ -704,6 +691,19 @@ rreturn {
       priority = 100,
     })
   end,
+
+    keys = {
+      {
+        "<tab>",
+        function()
+          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
+        end,
+        expr = true, silent = true, mode = "i",
+      },
+      { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
+      { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
+    },
+
   config = function()
     local cmp = require("cmp")
     local luasnip = require("luasnip")
@@ -1016,7 +1016,9 @@ return {
 *** Oil
 #+begin_src lua :tangle lua/plugins/utils.lua
 {
-  { 'stevearc/oil.nvim', opts = {
+  { 'stevearc/oil.nvim', 
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
     default_file_explorer = true,
     view_options = {
       show_hidden = true,
@@ -1135,6 +1137,28 @@ return {
   "echasnovski/mini.bufremove",
 },
 #+end_src
+
+*** Vim be good
+    #+begin_src lua :tangle lua/plugins/utils.lua
+    {"ThePrimeagen/vim-be-good"},
+    #+end_src
+*** Neorg
+    #+begin_src lua :tangle lua/plugins/utils.lua
+    {
+    "vhyrro/luarocks.nvim",
+    priority = 1000,
+    config = true,
+    },
+    {
+        "nvim-neorg/neorg",
+        dependencies = { "luarocks.nvim" },
+        lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+        version = "*", -- Pin Neorg to the latest stable release
+        config = function()
+            require("neorg").setup({})
+        end,
+    },
+    #+end_src
 *** End
     #+begin_src lua :tangle lua/plugins/utils.lua
     }
