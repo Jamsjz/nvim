@@ -1,29 +1,50 @@
 -- Buffers
-vim.api.nvim_set_keymap("n", "<S-Tab>", ":bprevious<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>sx", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.api.nvim_set_keymap("n", "<Tab>", ":bnext<CR>", { noremap = true, silent = true })
-vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
-vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
+local map = vim.keymap.set
+map({ "n", "v" }, "<leader>sx", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+map({ "n", "v" }, "<leader>y", [["+y]])
+map({ "n", "v" }, "<leader>Y", [["+Y]])
+map({ "n", "v" }, "<leader>d", [["_d]])
 
--- Cursor
-vim.api.nvim_set_keymap("i", "<C-j>", "<Down>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", "<C-k>", "<Up>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", "<C-h>", "<Left>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", "<C-l>", "<Right>", { noremap = true, silent = true })
 -- Code runner
-vim.keymap.set("n", "<leader>rr", ":RunCode<CR>", { noremap = true, silent = false })
-vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { noremap = true, silent = false })
-vim.keymap.set("n", "<leader>rq", ":RunProject<CR>", { noremap = true, silent = false })
-vim.keymap.set("n", ";", ":", { noremap = true, silent = false })
-vim.keymap.set("n", "<leader>fs", ":w<CR>", { noremap = true, silent = false })
+map("n", "<leader>rr", ":RunCode<CR>", { noremap = true, silent = false })
+map("n", "<leader>rn", vim.lsp.buf.rename, { noremap = true, silent = false, desc = "Rename under cursor" })
+map("n", "<leader>rq", ":RunProject<CR>", { noremap = true, silent = false })
+map("n", ";", ":", { noremap = true, silent = false })
+map("n", "<leader>fs", ":w<CR>", { noremap = true, silent = false })
+
 -- Wrap movement
-vim.keymap.set("n", "j", "gj")
-vim.keymap.set("n", "k", "gk")
-vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+map("n", "j", "gj")
+map("n", "k", "gk")
+map("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
 -- Bind Control + Backspace to Control + W in insert mode
-vim.api.nvim_set_keymap('i', '<C-BS>', '<C-W>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("i", "<C-BS>", "<C-W>", { noremap = true, silent = true })
+
+-- Escape from insert mode
+map("i", "jk", "<ESC>", { noremap = true, silent = false })
+
+-- Save undo history
+vim.o.undofile = true
+
+-- Case insensitive searching UNLESS /C or capital in search
+vim.o.ignorecase = true
+vim.o.smartcase = true
+
+-- Obsidian
+vim.keymap.set("n", "gf", function()
+	if require("obsidian").util.cursor_on_markdown_link() then
+		return "<cmd>ObsidianFollowLink<CR>"
+	else
+		return "gf"
+	end
+end, { noremap = false, expr = true })
+
+map("n", "<leader>nn", ":ObsidianNew ", { noremap = true, silent = false, desc = "New note" })
+map("n", "<leader>nt", ":ObsidianTOC<CR>", { noremap = true, silent = false, desc = "Add TOC" })
+map("n", "<leader>nd", ":ObsidianToday<CR>", { noremap = true, silent = false, desc = "Today note" })
+map("n", "<leader>nsl", ":ObsidianLinks<CR>", { noremap = true, silent = false, desc = "Links" })
+map("n", "<leader>nfl", ":ObsidianFollowLink<CR>", { noremap = true, silent = false, desc = "Follow link" })
+map("n", "<leader>nsd", ":ObsidianDailies<CR>", { noremap = true, silent = false, desc = "Search Dailies" })
+map("n", "<leader>nss", ":ObsidianSearch<CR>", { noremap = true, silent = false, desc = "Search" })
+map("n", "<leader>nn", ":ObsidianQuickSwitch<CR>", { noremap = true, silent = false, desc = "Quick switch" })
+map("n", "<leader>nrn", ":ObsidianRename ", { noremap = true, silent = false, desc = "Rename note" })

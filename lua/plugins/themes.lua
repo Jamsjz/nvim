@@ -1,13 +1,14 @@
-
 return {
-  -- Configure LazyVim to load dracula
-  { "ellisonleao/gruvbox.nvim", config = true, opts = ...},
-  {"olimorris/onedarkpro.nvim", priority = 1000},
+	-- Configure LazyVim to load dracula
+	{ "olimorris/onedarkpro.nvim", priority = 1000 },
 
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "onedark_dark",
-    },
-  },
+	{
+		"LazyVim/LazyVim",
+		opts = {
+			colorscheme = "ayu_dark",
+		},
+	},
+	{
+		"notken12/base46-colors",
+	},
 }
