@@ -313,4 +313,5 @@ return {
 			require("neorg").setup({})
 		end,
 	},
+	{ "mbbill/undotree" },
 }

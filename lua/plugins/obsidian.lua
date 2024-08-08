@@ -17,17 +17,23 @@ return {
 			workspaces = {
 				{
 					name = "Notes",
-					path = "~/notes/Obsidian-Vault-Template/Vault",
+					path = "/home/j/notes/zettle/zettle/",
 				},
 			},
 
-			daily_notes = {
-				folder = "~/notes/Obsidian-Vault-Template/Vault/06 - Daily",
-				template = "~/notes/Obsidian-Vault-Template/Vault/99 - Meta/00 - Templates/(TEMPLATE) Daily.md",
+			templates = {
+				folder = "Templates",
 			},
 
+			daily_notes = {
+				folder = "Daily",
+				default_tags = {
+					"Daily",
+				},
+				template = "Daily",
+			},
 			picker = {
-				name = "telescope.nvim",
+				name = "fzf-lua",
 				mappings = {
 					new = "<C-x>",
 					insert_link = "<C-l>",
@@ -75,7 +81,7 @@ return {
 			},
 
 			attachments = {
-				img_folder = "~/notes/Obsidian-Vault-Template/Vault/07 - Archives/Images/",
+				img_folder = "Assets",
 				---@param client obsidian.Client
 				---@param path obsidian.Path
 				---@return string
@@ -86,12 +92,6 @@ return {
 				confirm_img_paste = false,
 			},
 			callbacks = {
-				-- Runs at the end of `require("obsidian").setup()`.
-				---@param client obsidian.Client
-				post_setup = function(client)
-					print("Obsidian.nvim is ready!")
-				end,
-
 				-- Runs anytime you enter the buffer for a note.
 				---@param client obsidian.Client
 				---@param note obsidian.Note

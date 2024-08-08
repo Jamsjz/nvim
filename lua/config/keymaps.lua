@@ -48,3 +48,10 @@ map("n", "<leader>nsd", ":ObsidianDailies<CR>", { noremap = true, silent = false
 map("n", "<leader>nss", ":ObsidianSearch<CR>", { noremap = true, silent = false, desc = "Search" })
 map("n", "<leader>nn", ":ObsidianQuickSwitch<CR>", { noremap = true, silent = false, desc = "Quick switch" })
 map("n", "<leader>nrn", ":ObsidianRename ", { noremap = true, silent = false, desc = "Rename note" })
+-- undo tree
+map(
+	"n",
+	"<leader>j",
+	":UndotreeToggle<CR>:UndotreeFocus<CR>",
+	{ noremap = true, silent = false, desc = "Toggle undo tree" }
+)
