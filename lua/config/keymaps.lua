@@ -55,3 +55,6 @@ map(
 	":UndotreeToggle<CR>:UndotreeFocus<CR>",
 	{ noremap = true, silent = false, desc = "Toggle undo tree" }
 )
+
+map("n", "<C-D>", "<C-D>zz", { noremap = true, silent = false })
+map("n", "<C-U>", "<C-U>zz", { noremap = true, silent = false })
