@@ -30,24 +30,6 @@ vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
--- Obsidian
-vim.keymap.set("n", "gf", function()
-	if require("obsidian").util.cursor_on_markdown_link() then
-		return "<cmd>ObsidianFollowLink<CR>"
-	else
-		return "gf"
-	end
-end, { noremap = false, expr = true })
-
-map("n", "<leader>nn", ":ObsidianNew ", { noremap = true, silent = false, desc = "New note" })
-map("n", "<leader>nt", ":ObsidianTOC<CR>", { noremap = true, silent = false, desc = "Add TOC" })
-map("n", "<leader>nd", ":ObsidianToday<CR>", { noremap = true, silent = false, desc = "Today note" })
-map("n", "<leader>nsl", ":ObsidianLinks<CR>", { noremap = true, silent = false, desc = "Links" })
-map("n", "<leader>nfl", ":ObsidianFollowLink<CR>", { noremap = true, silent = false, desc = "Follow link" })
-map("n", "<leader>nsd", ":ObsidianDailies<CR>", { noremap = true, silent = false, desc = "Search Dailies" })
-map("n", "<leader>nss", ":ObsidianSearch<CR>", { noremap = true, silent = false, desc = "Search" })
-map("n", "<leader>nn", ":ObsidianQuickSwitch<CR>", { noremap = true, silent = false, desc = "Quick switch" })
-map("n", "<leader>nrn", ":ObsidianRename ", { noremap = true, silent = false, desc = "Rename note" })
 -- undo tree
 map(
 	"n",
