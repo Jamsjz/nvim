@@ -17,6 +17,7 @@ return {
 				"css",
 				"toml",
 				"json",
+				"latex",
 			},
 			highlight = {
 				enable = true,

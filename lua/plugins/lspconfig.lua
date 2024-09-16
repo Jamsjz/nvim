@@ -30,6 +30,8 @@ return {
 					end,
 					init_options = {
 						settings = {
+							logLevel = "error",
+							organizeImports = true,
 							args = {},
 						},
 					},

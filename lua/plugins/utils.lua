@@ -100,11 +100,6 @@ return {
 		},
 	},
 
-	-- TAGBAR
-	{
-		"preservim/tagbar",
-	},
-
 	-- MULTI LINE EDITING
 	{
 		"mg979/vim-visual-multi",
@@ -257,8 +252,11 @@ return {
 				"nvim-cmp",
 				dependencies = {
 					"saadparwaiz1/cmp_luasnip",
+					"hrsh7th/cmp-emoji",
 				},
+				---@param opts cmp.ConfigSchema
 				opts = function(_, opts)
+					table.insert(opts.sources, { name = "emoji" })
 					opts.snippet = {
 						expand = function(args)
 							require("luasnip").lsp_expand(args.body)
@@ -314,4 +312,8 @@ return {
 		end,
 	},
 	{ "mbbill/undotree" },
+	{
+		"akinsho/bufferline.nvim",
+		enabled = true,
+	},
 }
