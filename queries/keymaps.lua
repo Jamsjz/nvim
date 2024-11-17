@@ -26,6 +26,7 @@ map({ "n", "v" }, "<leader>sx", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><L
 map({ "n", "v" }, "<leader>y", [["+y]])
 map({ "n", "v" }, "<leader>Y", [["+Y]])
 map({ "n", "v" }, "<leader>d", [["_d]])
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Code runner
 map("n", "<leader>rr", ":RunCode<CR>", { noremap = true, silent = false })

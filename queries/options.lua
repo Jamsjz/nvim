@@ -17,7 +17,7 @@ vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undofile = false
+vim.opt.undofile = true
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 vim.opt.colorcolumn = "90"
@@ -52,7 +52,7 @@ vim.opt.conceallevel = 2
 vim.opt.concealcursor = "nc"
 vim.cmd("language en_US.utf8")
 vim.opt.cursorline = true
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 50
 
 -- Shell
 vim.o.shell = "/usr/bin/fish"
