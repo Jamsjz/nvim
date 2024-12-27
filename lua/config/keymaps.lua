@@ -45,9 +45,6 @@ vim.api.nvim_set_keymap("i", "<C-BS>", "<C-W>", { noremap = true, silent = true 
 -- Escape from insert mode
 map("i", "jk", "<ESC>", { noremap = true, silent = false })
 
--- Save undo history
-vim.o.undofile = true
-
 -- Case insensitive searching UNLESS /C or capital in search
 vim.o.ignorecase = true
 vim.o.smartcase = true
