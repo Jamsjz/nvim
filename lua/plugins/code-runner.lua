@@ -1,4 +1,3 @@
--- CODE RUNNER
 return {
   "CRAG666/code_runner.nvim",
   config = true,
@@ -8,12 +7,12 @@ return {
       "javac $fileName &&",
       "java $fileNameWithoutExt",
     },
-    python = "python3 -u",
-    typescript = "deno run",
+    python = "python3 $fileName", -- Use python3 for better compatibility
+    typescript = "deno run $fileName", -- Ensure Deno is installed
     rust = {
       "cd $dir &&",
       "rustc $fileName &&",
-      "$dir/$fileNameWithoutExt",
+      "./$fileNameWithoutExt", -- Ensure execution from current directory
     },
   },
 }

@@ -18,18 +18,22 @@ return {
         blade = { "blade-formatter", "rustywind" },
         python = { "black" },
         javascript = { "prettierd" },
-        -- rust = { "rustfmt" },
+        rust = { "rustfmt" },
       },
       -- LazyVim will merge the options you set here with builtin formatters.
       -- You can also define any custom formatters here.
       ---@type table<string, conform.FormatterConfigOverride|fun(bufnr: integer): nil|conform.FormatterConfigOverride>
       formatters = {
         injected = { options = { ignore_errors = true } },
+        prettierd = {
+          command = util.find_executable({
+            "/run/current-system/sw/bin/prettierd",
+          }),
+        },
+        stylua = {
+          command = util.find_executable({ "/run/current-system/sw/bin/stylua" }),
+        },
         pint = {
-          meta = {
-            url = "https://github.com/laravel/pint",
-            description = "Laravel Pint is an opinionated PHP code style fixer for minimalists. Pint is built on top of PHP-CS-Fixer and makes it simple to ensure that your code style stays clean and consistent.",
-          },
           command = util.find_executable({
             -- vim.fn.stdpath("data") .. "/mason/bin/pint",
             "./vendor/bin/pint",
