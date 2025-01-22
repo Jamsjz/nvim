@@ -1,57 +1,83 @@
--- Options are automatically loaded before lazy.nvim startup
--- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
--- Add any additional options here
+vim.cmd("let g:netrw_liststyle = 3")
+local opt = vim.opt
 -- UI
-vim.opt.termguicolors = true
+opt.termguicolors = true
+opt.guicursor = "n:block,i:block,v:block,c:cursor"
 vim.o.pumheight = 10
 vim.o.cmdheight = 1
 
+-- Get the current 'iskeyword' setting
+opt.iskeyword = "@,48-57,65-90,97-122"
+
 --tab
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
+opt.tabstop = 2
+opt.softtabstop = 2
+opt.shiftwidth = 2
+opt.expandtab = true -- expand tab to spaces
+opt.autoindent = true -- copy indent from current line when starting new one
 
 -- smartindent
-vim.opt.smartindent = true
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.undofile = false
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
-vim.opt.colorcolumn = "90"
-vim.opt.updatetime = 50
+opt.smartindent = true
+opt.swapfile = false
+opt.undofile = true
+opt.hlsearch = false
+opt.incsearch = true
+opt.colorcolumn = "90"
+opt.updatetime = 50
 
-vim.o.clipboard = "unnamedplus"
+-- opt.clipboard = "unnamedplus"
+-- Update and backups
+opt.showmode = false
+opt.backup = false
+opt.writebackup = false
+opt.updatetime = 300
+opt.timeoutlen = 100
+-- Backspace key
+opt.backspace = "indent,eol,start"
+
+opt.spelllang = "en_us"
+
+-- Neovide
+vim.g.neovide_transparency = 0.8
+
+opt.conceallevel = 2
+opt.concealcursor = "nc"
+vim.cmd("language en_US.utf8")
+opt.cursorline = true
+opt.scrolloff = 10
+opt.wrap = false
+
+-- fold options
+opt.foldmethod = "expr"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+opt.foldtext = ""
+opt.foldlevel = 2
+opt.foldlevelstart = 1
+opt.foldnestmax = 4
+-- search settings
+opt.smartcase = true -- if you include mixed case in your search, assusmes you want case-sensitive
+
+opt.background = "dark" -- colorschemes that can be light or dark will me made dark
+opt.signcolumn = "yes" -- show sign column so that text doesn't shift
+
+-- split windows
+opt.splitright = true -- split vertical windows to the right
+opt.splitbelow = true -- split horizontal windows to the buttom
+
 -- Update and backups
 vim.o.showmode = false
 vim.o.backup = false
 vim.o.writebackup = false
 vim.o.updatetime = 300
-vim.o.timeoutlen = 100
--- Backspace key
-vim.o.backspace = "indent,eol,start"
--- Get the current 'iskeyword' setting
-vim.opt.iskeyword = "@,48-57,65-90,97-122"
+vim.o.timeoutlen = 500
 
--- Markdown
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "markdown",
-  callback = function()
-    vim.opt.wrap = true
-    vim.opt.linebreak = true
-  end,
-})
-vim.opt.spelllang = "en_us"
+-- mouse
+vim.opt.mouse = ""
 
--- Neovide
-vim.g.neovide_transparency = 0.8
+vim.lsp.set_log_level("debug")
 
-vim.opt.conceallevel = 2
-vim.opt.concealcursor = "nc"
-vim.cmd("language en_US.utf8")
-vim.opt.cursorline = true
-vim.opt.scrolloff = 10
+--NOTE: [disable supermaven on startup]
+-- vim.g.supermaven_disable = true
 
 -- Shell
-vim.o.shell = "/usr/bin/fish"
+opt.shell = "/home/viola/.nix-profile/bin/zsh"

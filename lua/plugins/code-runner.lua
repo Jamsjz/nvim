@@ -1,18 +1,44 @@
 return {
   "CRAG666/code_runner.nvim",
   config = true,
-  filetype = {
-    java = {
-      "cd $dir &&",
-      "javac $fileName &&",
-      "java $fileNameWithoutExt",
-    },
-    python = "python3 $fileName", -- Use python3 for better compatibility
-    typescript = "deno run $fileName", -- Ensure Deno is installed
-    rust = {
-      "cd $dir &&",
-      "rustc $fileName &&",
-      "./$fileNameWithoutExt", -- Ensure execution from current directory
+
+  opts = {
+    filetype = {
+      javascript = "node",
+      go = "go run .",
+      typescript = {
+        "cd $dir &&",
+        "bun $fileName &&",
+      },
+      java = {
+        "cd $dir &&",
+        "javac $fileName &&",
+        "java $fileNameWithoutExt",
+      },
+      c = {
+        "cd $dir &&",
+        "clang $fileName",
+        "-o $fileNameWithoutExt &&",
+        "$dir/$fileNameWithoutExt",
+      },
+      cpp = {
+        "cd $dir &&",
+        "g++ $fileName",
+        "-o $fileNameWithoutExt &&",
+        "$dir/$fileNameWithoutExt",
+      },
+      -- python = "cd $dir &&",
+      -- "python3 $filename",
+
+      sh = "zsh $filename",
+      ruby = "ruby",
+      rust = {
+        "cd $dir &&",
+        "cargo run",
+      },
+      elixir = {
+        "elixir $fileName",
+      },
     },
   },
 }

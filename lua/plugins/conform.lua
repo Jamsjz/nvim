@@ -16,9 +16,20 @@ return {
         sh = { "shfmt" },
         php = { "pint" },
         blade = { "blade-formatter", "rustywind" },
-        python = { "black" },
         javascript = { "prettierd" },
         rust = { "rustfmt" },
+        typescript = { "prettier" },
+        javascriptreact = { "prettier" },
+        typescriptreact = { "prettier" },
+        svelte = { "prettier" },
+        css = { "prettier" },
+        html = { "prettier" },
+        json = { "prettier" },
+        yaml = { "prettier" },
+        markdown = { "prettier" },
+        graphql = { "prettier" },
+        liquid = { "prettier" },
+        python = { "isort", "black" },
       },
       -- LazyVim will merge the options you set here with builtin formatters.
       -- You can also define any custom formatters here.
@@ -35,7 +46,6 @@ return {
         },
         pint = {
           command = util.find_executable({
-            -- vim.fn.stdpath("data") .. "/mason/bin/pint",
             "./vendor/bin/pint",
           }, "pint"),
           args = { "$FILENAME" },

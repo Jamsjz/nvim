@@ -1,0 +1,252 @@
+local luasnip = require("luasnip")
+local s = luasnip.snippet
+local t = luasnip.text_node
+local i = luasnip.insert_node
+local extras = require("luasnip.extras")
+local rep = extras.rep
+local fmt = require("luasnip.extras.fmt").fmt
+local c = luasnip.choice_node
+
+luasnip.add_snippets("rust", {
+  -- Snippet for including common imports
+  s(
+    "imports",
+    fmt(
+      [[
+use std::fmt;
+use std::io;
+use std::collections::HashMap;
+use std::env;
+use std::fs;
+]],
+      {}
+    )
+  ),
+
+  -- Snippet for defining a struct
+  -- 	s(
+  -- 		"struct",
+  -- 		fmt(
+  -- 			[[
+  -- struct {name} {{
+  --   {fields}
+  -- }}
+  --
+  -- impl {name} {{
+  --   fn new({params}) -> Self {{
+  --     {name} {{
+  --       {field_values}
+  --     }}
+  --   }}
+  --
+  --   fn display(&self) {{
+  --     println!("{:?}", self);
+  --   }}
+  -- }}
+  -- ]],
+  -- 			{
+  -- 				i(1, "MyStruct"), -- name
+  -- 				i(2, "field1: i32, field2: String"), -- fields
+  -- 				i(3, "field1, field2"), -- field values
+  -- 				i(4, "field1: i32, field2: String"), -- parameters for new
+  -- 			}
+  -- 		)
+  -- 	),
+  --
+  -- 	-- Snippet for a basic `main` function
+  -- 	s(
+  -- 		"main",
+  -- 		fmt(
+  -- 			[[
+  -- fn main() {{
+  --     {body}
+  -- }}
+  -- ]],
+  -- 			{
+  -- 				i(1, 'println!("Hello, World!");'), -- Default println
+  -- 			}
+  -- 		)
+  -- 	),
+  --
+  -- 	-- Snippet for a `for` loop
+  -- 	s(
+  -- 		"for_loop",
+  -- 		fmt(
+  -- 			[[
+  -- for {var} in {iterable} {{
+  --     {body}
+  -- }}
+  -- ]],
+  -- 			{
+  -- 				i(1, "i"), -- loop variable
+  -- 				i(2, "0..10"), -- iterable
+  -- 				i(3, 'println!("{}", {var});'), -- body of loop
+  -- 			}
+  -- 		)
+  -- 	),
+  --
+  -- 	-- Snippet for a `match` statement
+  -- 	s(
+  -- 		"match",
+  -- 		fmt(
+  -- 			[[
+  -- match {expr} {{
+  --     {pat_1} => {action_1},
+  --     {pat_2} => {action_2},
+  --     _ => {default_action},
+  -- }}
+  -- ]],
+  -- 			{
+  -- 				i(1, "value"), -- expression to match
+  -- 				i(2, "Some(1)"), -- pattern 1
+  -- 				i(3, 'println!("Matched 1");'), -- action 1
+  -- 				i(4, "Some(2)"), -- pattern 2
+  -- 				i(5, 'println!("Matched 2");'), -- action 2
+  -- 				i(6, "_"), -- default pattern
+  -- 				i(7, 'println!("Default case");'), -- default action
+  -- 			}
+  -- 		)
+  -- 	),
+  --
+  -- 	-- Snippet for a `Result` type handling
+  -- 	s(
+  -- 		"result",
+  -- 		fmt(
+  -- 			[[
+  -- fn example() -> Result<{ok_type}, {err_type}> {{
+  --     let value: {ok_type} = {some_value};
+  --     if {condition} {{
+  --         Ok(value)
+  --     }} else {{
+  --         Err({err_type}::new("Error occurred"))
+  --     }}
+  -- }}
+  -- ]],
+  -- 			{
+  -- 				i(1, "i32"), -- ok type
+  -- 				i(2, "String"), -- error type
+  -- 				i(3, "42"), -- some value
+  -- 				i(4, "value > 10"), -- condition
+  -- 			}
+  -- 		)
+  -- 	),
+  --
+  -- 	-- Snippet for async function
+  -- 	s(
+  -- 		"async_fn",
+  -- 		fmt(
+  -- 			[[
+  -- async fn {name}({params}) -> Result<{ret_type}, {err_type}> {{
+  --     {body}
+  -- }}
+  -- ]],
+  -- 			{
+  -- 				i(1, "fetch_data"), -- function name
+  -- 				i(2, "url: String"), -- function parameters
+  -- 				i(3, "String"), -- return type
+  -- 				i(4, "std::io::Error"), -- error type
+  -- 				i(5, "Ok(data)"), -- body
+  -- 			}
+  -- 		)
+  -- 	),
+  --
+  -- 	-- Snippet for implementing a trait
+  -- 	-- 	s(
+  -- 	-- 		"trait_impl",
+  -- 	-- 		fmt(
+  -- 	-- 			[[
+  -- 	-- struct {name} {{
+  -- 	--     {fields}
+  -- 	-- }}
+  -- 	--
+  -- 	-- impl {trait_name} for {name} {{
+  -- 	--     fn {method_name}(&self) {{
+  -- 	--         {method_body}
+  -- 	--     }}
+  -- 	-- }}
+  -- 	-- ]],
+  -- 	-- 			{
+  -- 	-- 				i(1, "MyStruct"), -- struct name
+  -- 	-- 				i(2, "field1: i32, field2: String"), -- struct fields
+  -- 	-- 				i(3, "Display"), -- trait name
+  -- 	-- 				i(4, "display"), -- method name
+  -- 	-- 				i(5, 'println!("{}", self.field1);'), -- method body
+  -- 	-- 			}
+  -- 	-- 		)
+  -- 	-- 	),
+  --
+  -- 	-- Snippet for a basic enum
+  -- 	s(
+  -- 		"enum",
+  -- 		fmt(
+  -- 			[[
+  -- enum {name} {{
+  --    {variant_1},
+  --    {variant_2},
+  --    {variant_3},
+  -- }}
+  --
+  -- impl {name} {{
+  --    fn describe(&self) {{
+  --        match self {{
+  --            {name}::{variant_1} => println!("{} is variant 1", stringify!({variant_1})),
+  --            {name}::{variant_2} => println!("{} is variant 2", stringify!({variant_2})),
+  --            {name}::{variant_3} => println!("{} is variant 3", stringify!({variant_3})),
+  --        }}
+  --    }}
+  -- }}
+  -- ]],
+  -- 			{
+  -- 				i(1, "MyEnum"), -- enum name
+  -- 				i(2, "Variant1"), -- variant name
+  -- 				i(3, "Variant2"), -- variant name
+  -- 				i(4, "Variant3"), -- variant name
+  -- 			}
+  -- 		)
+  -- 	),
+  --
+  -- 	-- Snippet for using the `println!` macro
+  -- 	s(
+  -- 		"println",
+  -- 		fmt(
+  -- 			[[
+  -- println!("{}: {}", {expr}, {value});
+  -- ]],
+  -- 			{
+  -- 				i(1, '"Debug"'), -- first placeholder
+  -- 				i(2, "x"), -- expression placeholder
+  -- 				i(3, "42"), -- value to print
+  -- 			}
+  -- 		)
+  -- 	),
+  --
+  -- 	-- Snippet for vector creation
+  -- 	s(
+  -- 		"vector",
+  -- 		fmt(
+  -- 			[[
+  -- let {name}: Vec<{type}> = vec![{values}];
+  -- ]],
+  -- 			{
+  -- 				i(1, "my_vec"), -- vector name
+  -- 				i(2, "i32"), -- type of elements
+  -- 				i(3, "1, 2, 3, 4, 5"), -- values inside the vector
+  -- 			}
+  -- 		)
+  -- 	),
+  --
+  -- 	-- Snippet for defining a `const`
+  -- 	s(
+  -- 		"const",
+  -- 		fmt(
+  -- 			[[
+  -- const {name}: {type} = {value};
+  -- ]],
+  -- 			{
+  -- 				i(1, "PI"), -- constant name
+  -- 				i(2, "f64"), -- constant type
+  -- 				i(3, "3.14159"), -- constant value
+  -- 			}
+  -- 		)
+  -- 	),
+})

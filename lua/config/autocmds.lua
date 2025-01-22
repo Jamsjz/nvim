@@ -1,13 +1,44 @@
 vim.loader.enable()
 
-local augroup = vim.api.nvim_create_augroup("lsp_blade_workaround", { clear = true })
-
 -- Autocommand to temporarily change 'blade' filetype to 'php' when opening for LSP server activation
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  group = augroup,
+  group = vim.api.nvim_create_augroup("lsp_blade_workaround", { clear = true }),
   pattern = "*.blade.php",
   callback = function()
     vim.bo.filetype = "php"
+  end,
+})
+
+-- Markdown
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt.wrap = true
+    vim.opt.linebreak = true
+  end,
+})
+
+-- Highlight when yanking (copying) text
+vim.api.nvim_create_autocmd("TextYankPost", {
+  desc = "Highlight when yanking (copying) text",
+  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
+
+--PHP
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "php",
+  callback = function()
+    -- Attach the LSP to the buffer
+    vim.cmd("LspStart intelephense")
+    vim.cmd("LspStart html")
+    vim.cmd("LspStart htmx")
+    vim.opt.iskeyword:append("$")
+
+    -- Allow luasnip to extend to PHP
+    require("luasnip").filetype_extend("php", { "html" })
   end,
 })
 
@@ -28,24 +59,3 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end)
   end,
 })
-
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "php",
-  callback = function()
-    -- Attach the LSP to the buffer
-    vim.cmd("LspStart intelephense")
-    vim.cmd("LspStart html")
-    vim.cmd("LspStart htmx")
-
-    -- Allow luasnip to extend to PHP
-    require("luasnip").filetype_extend("php", { "html" })
-  end,
-})
-
--- make $ part of the keyword for php.
-vim.api.nvim_exec(
-  [[
-autocmd FileType php set iskeyword+=$
-]],
-  false
-)
