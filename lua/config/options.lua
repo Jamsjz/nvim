@@ -52,7 +52,7 @@ opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldtext = ""
 opt.foldlevel = 2
-opt.foldlevelstart = 1
+opt.foldlevelstart = 4
 opt.foldnestmax = 4
 -- search settings
 opt.smartcase = true -- if you include mixed case in your search, assusmes you want case-sensitive
@@ -72,7 +72,7 @@ vim.o.updatetime = 300
 vim.o.timeoutlen = 500
 
 -- mouse
-vim.opt.mouse = ""
+-- vim.opt.mouse = ""
 
 vim.lsp.set_log_level("debug")
 
