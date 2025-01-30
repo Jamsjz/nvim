@@ -2,7 +2,7 @@ vim.cmd("let g:netrw_liststyle = 3")
 local opt = vim.opt
 -- UI
 opt.termguicolors = true
-opt.guicursor = "n:block,i:block,v:block,c:cursor"
+-- opt.guicursor = "n:block,i:block,v:block,c:cursor"
 vim.o.pumheight = 10
 vim.o.cmdheight = 1
 
@@ -41,7 +41,7 @@ opt.spelllang = "en_us"
 vim.g.neovide_transparency = 0.8
 
 opt.conceallevel = 2
-opt.concealcursor = "nc"
+opt.concealcursor = ""
 vim.cmd("language en_US.utf8")
 opt.cursorline = true
 opt.scrolloff = 10

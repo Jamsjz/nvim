@@ -1,14 +1,11 @@
 return {
 
-  -- {
-  --   "LazyVim/LazyVim",
-  --   opts = {
-  --     colorscheme = "habamax",
-  --   },
-  -- },
-  -- {
-  --   "notken12/base46-colors",
-  -- },
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "ayu_dark",
+    },
+  },
 
   {
     "bluz71/vim-moonfly-colors",
@@ -27,5 +24,8 @@ return {
       vim.g.moonflyVirtualTextColor = true
       vim.g.moonflyWinSeparator = 2
     end,
+  },
+  {
+    "notken12/base46-colors",
   },
 }

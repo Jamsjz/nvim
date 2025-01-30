@@ -1,7 +1,7 @@
 return {
-  {
-    -- diable tabbar
-    "akinsho/bufferline.nvim",
-    enabled = false,
-  },
+  -- {
+  --   -- diable tabbar
+  --   "akinsho/bufferline.nvim",
+  --   enabled = false,
+  -- },
 }

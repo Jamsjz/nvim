@@ -28,6 +28,17 @@ return {
       },
       pyright = {
         cmd = { base_path .. "/pyright-langserver", "--stdio" }, -- Add '-w' flag for watch mode
+        settings = {
+          python = {
+            analysis = {
+              typeCheckingMode = "off",
+              diagnosticMode = "workspace",
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+              ignore = { "*" },
+            },
+          },
+        },
       },
       ruff = {
         cmd = { base_path .. "/ruff-lsp" },
