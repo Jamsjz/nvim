@@ -14,11 +14,4 @@ return {
       }
     end,
   },
-  {
-    -- add longer timeout, since formatting blade files gets a little slow
-    -- "neovim/nvim-lspconfig",
-    -- opts = {
-    --   format = { timeout_ms = 2000 },
-    -- },
-  },
 }

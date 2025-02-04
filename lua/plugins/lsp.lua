@@ -6,6 +6,9 @@ return {
   opts = {
     autoformat = true,
     servers = {
+      texlab = {
+        cmd = { base_path .. "/texlab" },
+      },
       nixd = {
         cmd = { "nixd" },
         settings = {
