@@ -4,7 +4,7 @@ return {
     priority = 1000,
     config = function()
       -- Set global variables for transparency and terminal colors
-      vim.g.moonflyTransparent = true
+      vim.g.moonflyTransparent = false
       vim.g.moonflyTerminalColors = true
       -- Apply the colorscheme
       vim.cmd("colorscheme moonfly")
