@@ -7,7 +7,7 @@ return {
       vim.g.moonflyTransparent = false
       vim.g.moonflyTerminalColors = true
       -- Apply the colorscheme
-      vim.cmd("colorscheme catppuccin")
+      vim.cmd("colorscheme moonfly")
       vim.g.moonflyCursorColor = true
       vim.g.moonflyItalics = true
       vim.g.moonflyNormalFloat = true

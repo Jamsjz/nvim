@@ -14,12 +14,12 @@ local function amap(mode, lhs, rhs, opts)
   end
 end
 
-amap("n", "<leader>gd",
-  function()
-    Util.float_term({ "lazydocker", "-f", Util.get_root() .. "docker-compose.yml" },
-      { cwd = Util.get_root(), esc_esc = false })
-  end,
-  { desc = "LazyDocker (root dir)" })
+amap("n", "<leader>gd", function()
+  Util.float_term(
+    { "lazydocker", "-f", Util.get_root() .. "docker-compose.yml" },
+    { cwd = Util.get_root(), esc_esc = false }
+  )
+end, { desc = "LazyDocker (root dir)" })
 
 local map = vim.keymap.set
 map({ "n", "v" }, "<leader>sx", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
@@ -59,3 +59,7 @@ map(
 
 map("n", "<C-D>", "<C-D>zz", { noremap = true, silent = false })
 map("n", "<C-U>", "<C-U>zz", { noremap = true, silent = false })
+
+-- iron also has a list of commands, see :h iron-commands for all available commands
+vim.keymap.set("n", "<space>rf", "<cmd>IronFocus<cr>")
+vim.keymap.set("n", "<space>rh", "<cmd>IronHide<cr>")
