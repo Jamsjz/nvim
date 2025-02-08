@@ -4,7 +4,6 @@ return {
     opts = {
       ensure_installed = {
         "docker-compose-language-service",
-        "html-lsp",
         "php-debug-adapter",
         "pint",
         "css-lsp",

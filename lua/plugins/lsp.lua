@@ -9,19 +9,6 @@ return {
       texlab = {
         cmd = { base_path .. "/texlab" },
       },
-
-      intelephense = {
-        filetypes = { "php", "blade", "php_only" },
-        settings = {
-          intelephense = {
-            filetypes = { "php", "blade", "php_only" },
-            files = {
-              associations = { "*.php", "*.blade.php" },
-              maxSize = 5000000,
-            },
-          },
-        },
-      },
       html = {
         filetypes = { "html", "php", "blade", "php_only" },
         settings = {
@@ -46,9 +33,25 @@ return {
           },
         },
       },
-      -- emmet_ls = {
-      --   cmd = { "emmet_ls", "--stdio" },
-      -- },
+      emmet_ls = {
+        --   cmd = { "emmet_ls", "--stdio" },
+        filetypes = {
+          "astro",
+          "blade",
+          "css",
+          "eruby",
+          "html",
+          "htmldjango",
+          "javascriptreact",
+          "less",
+          "pug",
+          "sass",
+          "scss",
+          "svelte",
+          "typescriptreact",
+          "vue",
+        },
+      },
       nixd = {
         cmd = { "nixd" },
         settings = {
@@ -68,6 +71,16 @@ return {
       },
       phpactor = {
         cmd = { base_path .. "/phpactor" },
+        filetypes = { "php", "blade", "php_only" },
+        settings = {
+          phpactor = {
+            filetypes = { "php", "blade", "php_only" },
+            files = {
+              associations = { "*.php", "*.blade.php" },
+              maxSize = 5000000,
+            },
+          },
+        },
       },
       pyright = {
         cmd = { base_path .. "/pyright-langserver", "--stdio" }, -- Add '-w' flag for watch mode
