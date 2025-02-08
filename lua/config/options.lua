@@ -1,8 +1,8 @@
 vim.cmd("let g:netrw_liststyle = 3")
 local opt = vim.opt
 -- UI
-opt.termguicolors = true
--- opt.guicursor = "n:block,i:block,v:block,c:cursor"
+opt.termguicolors = false
+opt.guicursor = "n:block,i:block,v:block,c:cursor"
 vim.o.pumheight = 10
 vim.o.cmdheight = 1
 
@@ -51,7 +51,7 @@ opt.wrap = false
 opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldtext = ""
-opt.foldlevel = 2
+opt.foldlevel = 4
 opt.foldlevelstart = 4
 opt.foldnestmax = 4
 -- search settings
@@ -76,8 +76,7 @@ vim.o.timeoutlen = 500
 
 vim.lsp.set_log_level("debug")
 
---NOTE: [disable supermaven on startup]
--- vim.g.supermaven_disable = true
+vim.g.supermaven_disable = true
 
 -- Shell
 opt.shell = "/home/viola/.nix-profile/bin/zsh"

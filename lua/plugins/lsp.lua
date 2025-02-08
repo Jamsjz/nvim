@@ -1,113 +1,118 @@
 local base_path = "/run/current-system/sw/bin"
 
 return {
-  "neovim/nvim-lspconfig",
-  ---@class PluginLspOpts
-  opts = {
-    autoformat = true,
-    servers = {
-      texlab = {
-        cmd = { base_path .. "/texlab" },
-      },
-      html = {
-        filetypes = { "html", "php", "blade", "php_only" },
-        settings = {
-          html = {
-            filetypes = { "html", "php", "blade", "php_only" },
-            files = {
-              associations = { "*.html", "*.php", "*.blade.php" },
-              maxSize = 5000000,
-            },
-          },
+  {
+    "neovim/nvim-lspconfig",
+    ---@class PluginLspOpts
+    opts = {
+      autoformat = true,
+      servers = {
+        texlab = {
+          cmd = { base_path .. "/texlab" },
         },
-      },
-      htmx = {
-        filetypes = { "html", "php", "blade", "php_only" },
-        settings = {
-          htmx = {
-            filetypes = { "html", "php", "blade", "php_only" },
-            files = {
-              associations = { "*.html", "*.php", "*.blade.php" },
-              maxSize = 5000000,
-            },
-          },
-        },
-      },
-      emmet_ls = {
-        --   cmd = { "emmet_ls", "--stdio" },
-        filetypes = {
-          "astro",
-          "blade",
-          "css",
-          "eruby",
-          "html",
-          "htmldjango",
-          "javascriptreact",
-          "less",
-          "pug",
-          "sass",
-          "scss",
-          "svelte",
-          "typescriptreact",
-          "vue",
-        },
-      },
-      nixd = {
-        cmd = { "nixd" },
-        settings = {
-          nixd = {
-            nixpkgs = {
-              expr = {
-                "import <nixpkgs> { }",
+        html = {
+          filetypes = { "html", "php", "blade", "php_only" },
+          settings = {
+            html = {
+              filetypes = { "html", "php", "blade", "php_only" },
+              files = {
+                associations = { "*.html", "*.php", "*.blade.php" },
+                maxSize = 5000000,
               },
-              formatting = {
-                command = {
-                  "alejandra",
+            },
+          },
+        },
+        htmx = {
+          filetypes = { "html", "php", "blade", "php_only" },
+          settings = {
+            htmx = {
+              filetypes = { "html", "php", "blade", "php_only" },
+              files = {
+                associations = { "*.html", "*.php", "*.blade.php" },
+                maxSize = 5000000,
+              },
+            },
+          },
+        },
+        emmet_ls = {
+          --   cmd = { "emmet_ls", "--stdio" },
+          filetypes = {
+            "astro",
+            "blade",
+            "css",
+            "eruby",
+            "html",
+            "htmldjango",
+            "javascriptreact",
+            "less",
+            "pug",
+            "sass",
+            "scss",
+            "svelte",
+            "typescriptreact",
+            "vue",
+          },
+        },
+        nixd = {
+          cmd = { "nixd" },
+          settings = {
+            nixd = {
+              nixpkgs = {
+                expr = {
+                  "import <nixpkgs> { }",
+                },
+                formatting = {
+                  command = {
+                    "alejandra",
+                  },
                 },
               },
             },
           },
         },
-      },
-      phpactor = {
-        cmd = { base_path .. "/phpactor" },
-        filetypes = { "php", "blade", "php_only" },
-        settings = {
-          phpactor = {
-            filetypes = { "php", "blade", "php_only" },
-            files = {
-              associations = { "*.php", "*.blade.php" },
-              maxSize = 5000000,
+        phpactor = {
+          cmd = { base_path .. "/phpactor" },
+          filetypes = { "php", "blade", "php_only" },
+          settings = {
+            phpactor = {
+              filetypes = { "php", "blade", "php_only" },
+              files = {
+                associations = { "*.php", "*.blade.php" },
+                maxSize = 5000000,
+              },
             },
           },
         },
-      },
-      pyright = {
-        cmd = { base_path .. "/pyright-langserver", "--stdio" }, -- Add '-w' flag for watch mode
-        settings = {
-          python = {
-            analysis = {
-              typeCheckingMode = "off",
-              diagnosticMode = "workspace",
-              autoSearchPaths = true,
-              useLibraryCodeForTypes = true,
-              ignore = { "*" },
+        pyright = {
+          cmd = { base_path .. "/pyright-langserver", "--stdio" }, -- Add '-w' flag for watch mode
+          settings = {
+            python = {
+              analysis = {
+                typeCheckingMode = "off",
+                diagnosticMode = "workspace",
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                ignore = { "*" },
+              },
             },
           },
         },
-      },
-      ruff = {
-        cmd = { base_path .. "/ruff-lsp" },
-      },
-      lua_ls = {
-        cmd = { base_path .. "/lua-language-server" },
-      },
-      gopls = {
-        cmd = { base_path .. "/gopls" },
-      },
-      marksman = {
-        cmd = { base_path .. "/marksman" },
+        ruff = {
+          cmd = { base_path .. "/ruff-lsp" },
+        },
+        lua_ls = {
+          cmd = { base_path .. "/lua-language-server" },
+        },
+        gopls = {
+          cmd = { base_path .. "/gopls" },
+        },
+        marksman = {
+          cmd = { base_path .. "/marksman" },
+        },
       },
     },
+  },
+  {
+    "jwalton512/vim-blade",
   },
 }
