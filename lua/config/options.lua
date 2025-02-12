@@ -1,7 +1,7 @@
 vim.cmd("let g:netrw_liststyle = 3")
 local opt = vim.opt
 -- UI
-opt.termguicolors = false
+opt.termguicolors = true
 opt.guicursor = "n:block,i:block,v:block,c:cursor"
 vim.o.pumheight = 10
 vim.o.cmdheight = 1
