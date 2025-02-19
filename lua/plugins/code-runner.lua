@@ -4,7 +4,7 @@ return {
 
   opts = {
     filetype = {
-      javascript = "node",
+      javascript = "node $fileName",
       go = "go run .",
       typescript = {
         "cd $dir &&",
