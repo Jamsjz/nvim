@@ -42,10 +42,6 @@ return {
     end,
   },
   {
-    "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-  },
-  {
     "rmagatti/goto-preview",
     config = function()
       require("goto-preview").setup({
