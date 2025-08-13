@@ -7,7 +7,6 @@ vim.lsp.enable({
 	"pyright",
 	"tailwindcss",
 	"html",
-	"nil_ls",
 	"harper",
 })
 
