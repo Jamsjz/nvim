@@ -37,17 +37,23 @@ require("lazy").setup({
 			}
 		},
 		{ "https://github.com/morhetz/gruvbox.git" },
+		{ "https://github.com/folke/tokyonight.nvim.git" },
 		{ "https://github.com/hakonharnes/img-clip.nvim.git" },
 		{ "https://github.com/neovim/nvim-lspconfig.git" },
 		{
 			'https://github.com/saghen/blink.cmp',
 			version = '1.*',
 			dependencies = {
-				{ 'rafamadriz/friendly-snippets' },
 				{ "https://github.com/L3MON4D3/LuaSnip", opts = { enable_autosnippets = true } },
+				'rafamadriz/friendly-snippets',
+				"tpope/vim-dadbod",
+				"kristijanhusak/vim-dadbod-completion",
+				"kristijanhusak/vim-dadbod-ui",
 			},
-		}
-
+		},
+		{ "CRAG666/code_runner.nvim", config = true },
+		{ "lewis6991/gitsigns.nvim",  opts = { current_line_blame = true, }, },
+		{"https://github.com/kdheepak/lazygit.nvim.git"}
 	},
 	checker = { enabled = true },
 })

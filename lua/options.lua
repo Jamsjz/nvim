@@ -14,6 +14,6 @@ vim.opt.undofile = true
 vim.opt.incsearch = true
 vim.opt.signcolumn = "yes"
 -- colors
-vim.cmd("colorscheme gruvbox")
+vim.cmd("colorscheme tokyonight")
 vim.cmd(":hi statusline guibg=NONE")
 vim.o.completeopt = "noinsert"
