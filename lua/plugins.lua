@@ -28,11 +28,11 @@ require("lazy").setup({
 		{
 			"https://github.com/chomosuke/typst-preview.nvim",
 			opts = {
-				dependencies_bin = {
-					['tinymist'] = "/run/current-system/sw/bin/tinymist",
-					['websocat'] = "/run/current-system/sw/bin/websocat"
-				},
-				open_cmd = "zen-twilight --new-window %s --class typst-preview",
+				-- dependencies_bin = {
+				-- 	['tinymist'] = "/run/current-system/sw/bin/tinymist",
+				-- 	['websocat'] = "/run/current-system/sw/bin/websocat"
+				-- },
+				open_cmd = "google-chrome --new-window %s --class typst-preview",
 				invert_colors = "always"
 			}
 		},
