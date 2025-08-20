@@ -28,11 +28,11 @@ require("lazy").setup({
 		{
 			"https://github.com/chomosuke/typst-preview.nvim",
 			opts = {
-				-- dependencies_bin = {
-				-- 	['tinymist'] = "/run/current-system/sw/bin/tinymist",
-				-- 	['websocat'] = "/run/current-system/sw/bin/websocat"
-				-- },
-				open_cmd = "google-chrome --new-window %s --class typst-preview",
+				dependencies_bin = {
+					['tinymist'] = "/usr/bin/tinymist",
+					['websocat'] = "/usr/bin/websocat"
+				},
+				open_cmd = "google-chrome-stable --new-window %s --class typst-preview",
 				invert_colors = "always"
 			}
 		},
@@ -51,11 +51,12 @@ require("lazy").setup({
 				"kristijanhusak/vim-dadbod-ui",
 			},
 		},
-		{ "CRAG666/code_runner.nvim", config = true },
-		{ "lewis6991/gitsigns.nvim",  opts = { current_line_blame = true, }, },
-		{"https://github.com/kdheepak/lazygit.nvim.git"}
+		{ "CRAG666/code_runner.nvim",                         config = true },
+		{ "lewis6991/gitsigns.nvim",                          opts = { current_line_blame = true, }, },
+		{ "https://github.com/kdheepak/lazygit.nvim.git" },
+		{ "https://github.com/christoomey/vim-tmux-navigator" }
 	},
-	checker = { enabled = true },
+	checker = { enabled = false },
 })
 
 require "cmp"

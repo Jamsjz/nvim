@@ -1,18 +1,25 @@
 -- Options --
-vim.opt.winborder = "rounded"
-vim.opt.tabstop = 2
-vim.opt.cursorcolumn = false
-vim.opt.ignorecase = true
-vim.opt.shiftwidth = 2
-vim.opt.smartindent = true
-vim.opt.wrap = false
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.swapfile = false
-vim.opt.termguicolors = true
-vim.opt.undofile = true
-vim.opt.incsearch = true
-vim.opt.signcolumn = "yes"
+local opt = vim.opt
+opt.winborder = "rounded"
+opt.tabstop = 2
+opt.cursorcolumn = false
+opt.ignorecase = true
+opt.shiftwidth = 2
+opt.softtabstop = 2
+opt.smartindent = true
+opt.wrap = false
+opt.number = true
+opt.relativenumber = true
+opt.swapfile = false
+opt.termguicolors = true
+opt.undofile = true
+opt.incsearch = true
+opt.signcolumn = "yes"
+opt.colorcolumn = "90"
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+
+
 -- colors
 vim.cmd("colorscheme tokyonight")
 vim.cmd(":hi statusline guibg=NONE")
