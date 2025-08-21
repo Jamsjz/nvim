@@ -1,4 +1,4 @@
-local Pick = require("mini.pick")
+-- local Pick = require("mini.pick")
 
 local map = vim.keymap.set
 
@@ -12,30 +12,23 @@ local function delete_other_buffers()
 end
 
 
-local pick_lsp_symbols = function()
-	local picker_func = Pick.registry.labeled_lsp or function(local_opts, opts)
-		require("mini.extra").pickers.lsp({ scope = "document_symbol" }, { label = true })
-	end
-	picker_func({}, {})
-end
-
 vim.g.mapleader = " "
 
 map('n', '<leader>S', ':update<CR> :source<CR>', { desc = '[S]ave and source config' })
 map('n', '<leader>fs', ':write<CR>', { desc = '[F]ile [S]ave' })
 map({ 'n', 'v', 'x' }, '<leader>y', '"+y', { desc = '[Y]ank to system clipboard' })
 map({ 'n', 'v', 'x' }, '<leader>d', '"+d', { desc = '[D]elete to system clipboard' })
-map('n', '<leader><leader>', ":Pick files<CR>", { desc = '[P]ick [F]iles (double leader)' })
-map('n', '<leader>sf', ":Pick files<CR>", { desc = '[S]earch [F]iles' })
-map('n', '<leader>sh', ":Pick help<CR>", { desc = '[S]earch [H]elp' })
-map('n', '<leader>sc', ":Pick commands<CR>", { desc = '[S]earch [C]ommands' })
-map('n', '<leader>sk', ":Pick keymaps<CR>", { desc = '[S]earch [K]eymaps' })
-map('n', '<leader>s/', ":Pick grep_live<CR>", { desc = '[S]earch [/] Live grep' })
-map('n', '<leader>gsc', ":Pick git_commits<CR>", { desc = '[G]it [S]earch [C]ommits' })
-map('n', '<leader>gsb', ":Pick git_branches<CR>", { desc = '[G]it [S]earch [B]ranches' })
-map('n', '<leader>gsf', ":Pick git_files<CR>", { desc = '[G]it [S]earch [F]iles' })
-map('n', '<leader>/', ":Pick grep_live<CR>", { desc = '[S]earch live grep' })
-map('n', '<leader>.', ":Pick buffers<CR>", { desc = '[S]earch [B]uffers' })
+-- map('n', '<leader><leader>', ":Pick files<CR>", { desc = '[P]ick [F]iles (double leader)' })
+-- map('n', '<leader>sf', ":Pick files<CR>", { desc = '[S]earch [F]iles' })
+-- map('n', '<leader>sh', ":Pick help<CR>", { desc = '[S]earch [H]elp' })
+-- map('n', '<leader>sc', ":Pick commands<CR>", { desc = '[S]earch [C]ommands' })
+-- map('n', '<leader>sk', ":Pick keymaps<CR>", { desc = '[S]earch [K]eymaps' })
+-- map('n', '<leader>s/', ":Pick grep_live<CR>", { desc = '[S]earch [/] Live grep' })
+-- map('n', '<leader>gsc', ":Pick git_commits<CR>", { desc = '[G]it [S]earch [C]ommits' })
+-- map('n', '<leader>gsb', ":Pick git_branches<CR>", { desc = '[G]it [S]earch [B]ranches' })
+-- map('n', '<leader>gsf', ":Pick git_files<CR>", { desc = '[G]it [S]earch [F]iles' })
+-- map('n', '<leader>/', ":Pick grep_live<CR>", { desc = '[S]earch live grep' })
+-- map('n', '<leader>.', ":Pick buffers<CR>", { desc = '[S]earch [B]uffers' })
 map('n', '<leader>cf', vim.lsp.buf.format, { silent = true, desc = '[C]ode [F]ormat' })
 map('n', '<leader>cd', vim.diagnostic.open_float, { desc = '[C]ode [D]iagnostics' })
 map('n', 'H', ':bprevious<cr>', { desc = 'Go to previous buffer' })
@@ -47,12 +40,10 @@ map('i', 'C-BS', 'C-w')
 map('n', '<ESC>', '<cmd>nohlsearch<cr>', { silent = true, desc = 'Clear search highlights' })
 map('n', "<leader>p", ":PasteImage<cr>", { desc = '[P]aste image' })
 map('n', '<leader>uw', ':set wrap!<CR>', { desc = '[U]n/wrap [W]rap (toggle line wrap)' })
-map('n', '<leader>uc', ":Pick colorschemes<CR>", { desc = '[U]ser [C]olorschemes pick' })
+-- map('n', '<leader>uc', ":Pick colorschemes<CR>", { desc = '[U]ser [C]olorschemes pick' })
 map('n', 'C-u', "zzC-uzz")
 map('n', 'C-d', "zzC-dzz")
 
-
-map("n", "<leader>cs", "", { callback = pick_lsp_symbols, desc = "Pick LSP document symbols" })
 
 map('n', '<leader>rr', ':RunCode<CR>', { noremap = true, silent = false })
 map('n', '<leader>rp', ':RunProject<CR>', { noremap = true, silent = false })

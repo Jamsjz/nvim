@@ -21,6 +21,6 @@ vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 
 -- colors
-vim.cmd("colorscheme tokyonight")
+vim.cmd("colorscheme monokai-pro-default")
 vim.cmd(":hi statusline guibg=NONE")
 vim.o.completeopt = "noinsert"
