@@ -17,13 +17,30 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	spec = {
+		{"https://github.com/tpope/vim-rails.git"},
 		{
 			"folke/which-key.nvim",
 			event = "VeryLazy",
 		},
 		{ "https://github.com/echasnovski/mini.nvim" },
+		{ "https://github.com/j-hui/fidget.nvim"},
 		{ "https://github.com/nvim-treesitter/nvim-treesitter" },
 		{ "https://github.com/kaarmu/typst.vim.git" },
+		{ "https://github.com/vimpostor/vim-tpipeline"},
+		{
+			"folke/flash.nvim",
+			event = "VeryLazy",
+			---@type Flash.Config
+			opts = {},
+			keys = {
+				{ "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+				{ "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+				{ "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+				{ "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+				{ "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+			},
+		},
+		{"https://github.com/norcalli/nvim-colorizer.lua.git"},
 		{
 			"https://github.com/chomosuke/typst-preview.nvim",
 			opts = {
@@ -31,8 +48,8 @@ require("lazy").setup({
 					['tinymist'] = "/usr/bin/tinymist",
 					['websocat'] = "/usr/bin/websocat"
 				},
-				open_cmd = "google-chrome-stable --new-window %s --class typst-preview",
-				invert_colors = "always"
+				open_cmd = "explorer.exe %s",
+				-- invert_colors = "always"
 			}
 		},
 		{ "https://github.com/morhetz/gruvbox.git" },
@@ -96,12 +113,12 @@ require("lazy").setup({
 				input = { enabled = true },
 				notifier = {
 					enabled = true,
-					timeout = 3000,
+					timeout = 2000,
 				},
 				picker = { enabled = true },
 				quickfile = { enabled = true },
 				scope = { enabled = true },
-				scroll = { enabled = true },
+				-- scroll = { enabled = true },
 				statuscolumn = { enabled = true },
 				words = { enabled = true },
 				styles = {
@@ -240,5 +257,6 @@ require("lazy").setup({
 })
 
 require "cmp"
+require "tabout"
 require "min"
 require "theme"

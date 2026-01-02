@@ -8,6 +8,8 @@ vim.lsp.enable({
 	"tailwindcss",
 	"html",
 	"harper",
+	"herb_ls",
+	"ruby_lsp"
 })
 
 vim.lsp.config("lua_ls", {
@@ -27,4 +29,10 @@ vim.lsp.config("lua_ls", {
 			},
 		},
 	},
+})
+
+vim.lsp.config("tinymist", {
+	settings = {
+		formatterMode = "typstyle"
+	}
 })
